@@ -16,7 +16,7 @@ const Navbar = () => {
           src="https://cdn-icons-png.flaticon.com/128/10433/10433049.png"
           alt="Logo"
         />
-        <h1 className="text-2xl font-semibold">BookHeaven</h1>
+        <h1 className="text-2xl font-semibold">BookStore</h1>
       </div>
 
       <div className="nav-links-bookheaven flex gap-4 items-center">
