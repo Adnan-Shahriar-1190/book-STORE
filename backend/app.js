@@ -1,11 +1,12 @@
 const express = require("express");
+const cors = require('cors');
 const app = express();
 require("dotenv").config();
 require("./conn/conn");
 const userRoutes = require("./routes/user");
 const Books = require("./routes/book");
 
-// Middleware to parse JSON
+app.use(cors());
 app.use(express.json());
 
 // Routes
