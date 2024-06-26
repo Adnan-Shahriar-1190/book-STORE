@@ -1,4 +1,5 @@
 const router = require("express").Router();
+const { query, validationResult } = require('express-validator');
 const User = require("../models/user");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
@@ -119,4 +120,34 @@ router.delete("/delete-user", authenticateToken, async (req, res) => {
     res.status(500).json({ message: "An error occurred" });
   }
 });
+
+router.get("/search-users", async (req, res) => {
+  try {
+    const { searchTerm } = req.query;
+
+    if (!searchTerm) {
+      return res.status(400).json({ message: "Search term is required" });
+    }
+
+    // Search users by username or email
+    const users = await User.find({
+      $or: [
+        { username: { $regex: searchTerm, $options: "i" } }, // Case-insensitive search by username
+        { email: { $regex: searchTerm, $options: "i" } },    // Case-insensitive search by email
+      ],
+    }).select("-password");
+
+    return res.json({
+      status: "Success",
+      data: users,
+    });
+  } catch (error) {
+    console.error("Error searching users:", error);
+    res.status(500).json({ message: "An error occurred while searching users" });
+  }
+});
+
+
+
+
 module.exports = router;
