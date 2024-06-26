@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom';
 
 const Barb = () => {
   return (
@@ -11,10 +12,10 @@ const Barb = () => {
           Explore a world of captivating stories, profound insights, and boundless inspiration in our carefully curated book collection.
         </p>
         <div className='mt-10'>
-          <button className='text-white text-lg lg:text-xl font-bold border border-white px-8 py-4 hover:bg-white hover:text-blue-500 rounded-full transition-colors duration-300'>
+          <Link to="/all-books" className='text-white text-lg lg:text-xl font-bold border border-white px-8 py-4 hover:bg-white hover:text-blue-500 rounded-full transition-colors duration-300'>
             Explore Books
-          </button>
-        </div>
+          </Link>
+        </div> 
       </div>
     </div>
   );
