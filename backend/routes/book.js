@@ -1,4 +1,5 @@
 const router = require("express").Router();
+const { query, validationResult } = require('express-validator');
 const User = require("../models/user");
 const Book = require("../models/book");
 const { authenticateToken } = require("./userAuth");
@@ -111,5 +112,64 @@ router.get("/get-book-by-id/:id", async (req, res) => {
     res.status(500).json({ message: "An error occurred" });
   }
 });
+
+
+router.get("/search-books", [
+  query('name').optional().isString().trim().escape(),
+  query('author').optional().isString().trim().escape(),
+], async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+
+  const { name, author } = req.query;
+  const searchCriteria = {};
+
+  if (name) {
+    searchCriteria.title = new RegExp(name, 'i'); // case-insensitive search
+  }
+  if (author) {
+    searchCriteria.author = new RegExp(author, 'i'); // case-insensitive search
+  }
+
+  try {
+    const books = await Book.find(searchCriteria);
+    res.status(200).json({
+      status: 'Success',
+      data: books,
+    });
+  } catch (error) {
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
+
+
+router.get("/books-in-price-range", async (req, res) => {
+  try {
+    const { minPrice, maxPrice } = req.query;
+
+    // Validate input (optional)
+    if (!minPrice || !maxPrice) {
+      return res.status(400).json({ message: "Please provide both minPrice and maxPrice" });
+    }
+
+    // Query database for books within the price range
+    const books = await Book.find({
+      price: { $gte: Number(minPrice), $lte: Number(maxPrice) }
+    });
+
+    res.json({
+      status: "Success",
+      data: books
+    });
+  } catch (error) {
+    console.error("Error fetching books by price range:", error);
+    res.status(500).json({ message: "An error occurred while fetching books" });
+  }
+});
+
+
 
 module.exports = router;

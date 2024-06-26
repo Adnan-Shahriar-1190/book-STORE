@@ -9,7 +9,7 @@ const Navbar = () => {
     { title: "Cart", link: "/cart" },
     { title: "Profile", link: "/profile" },
   ];
-
+  
   const [MobileNav, setMobileNav] = useState("hidden");
 
   return (
