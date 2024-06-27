@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import BookCard from '../BookCard/BookCard';
 
 const RecentlyAdded = () => {
     const [data, setData] = useState();
@@ -22,13 +23,13 @@ const RecentlyAdded = () => {
     return (
         <div className='mt-8 px-4'>
             <h4 className='text-3xl text-yellow-100'>Recently Added Books</h4>
-            
+            <div className='my-8 grid gird-cols-1 sm:grid-cols-3 md:grid-cols-4 gap-4'>
             {data && data.map((book, index) => (
                 <div key={index}>
-                    <p>{book.title}</p>
-                    <p>{book.author}</p>
+                    <BookCard data={book}/>{" "}
                 </div>
             ))}
+            </div>
         </div>
     );
 }
