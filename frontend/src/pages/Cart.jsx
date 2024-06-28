@@ -1,58 +1,73 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
+import BookCard from "../components/BookCard/BookCard";
+import Loader from "../components/Loader/Loader";
 
 const BookSearch = () => {
-  const [searchTerm, setSearchTerm] = useState('');
-  const [minPrice, setMinPrice] = useState('');
-  const [maxPrice, setMaxPrice] = useState('');
-  const [searchResults, setSearchResults] = useState([]);
-  const [error, setError] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
+  const [minPrice, setMinPrice] = useState("");
+  const [maxPrice, setMaxPrice] = useState("");
+  const [searchResults, setSearchResults] = useState(null); // Change to null initially
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
   const handleSearchByName = async () => {
     try {
-      const response = await fetch(`http://localhost:1000/api/v1/search-books?name=${encodeURIComponent(searchTerm)}`);
+      setLoading(true);
+      const response = await fetch(
+        `http://localhost:1000/api/v1/search-books?name=${encodeURIComponent(
+          searchTerm
+        )}`
+      );
       if (!response.ok) {
-        throw new Error('Failed to fetch data');
+        throw new Error("Failed to fetch data");
       }
       const data = await response.json();
       setSearchResults(data.data);
-      setError('');
+      setError("");
       // Clear price search inputs
-      setMinPrice('');
-      setMaxPrice('');
+      setMinPrice("");
+      setMaxPrice("");
     } catch (error) {
-      setError('An error occurred while fetching data.');
+      setError("An error occurred while fetching data.");
       setSearchResults([]);
+    } finally {
+      setLoading(false);
     }
   };
 
   const handleSearchByPriceRange = async () => {
     try {
       if (!minPrice || !maxPrice) {
-        setError('Please provide both minPrice and maxPrice');
+        setError("Please provide both minPrice and maxPrice");
         setSearchResults([]);
         return;
       }
+      setLoading(true);
+      const response = await fetch(
+        `http://localhost:1000/api/v1/books-in-price-range?minPrice=${encodeURIComponent(
+          minPrice
+        )}&maxPrice=${encodeURIComponent(maxPrice)}`
+      );
 
-      const response = await fetch(`http://localhost:1000/api/v1/books-in-price-range?minPrice=${encodeURIComponent(minPrice)}&maxPrice=${encodeURIComponent(maxPrice)}`);
-      
       if (!response.ok) {
-        throw new Error('Failed to fetch data');
+        throw new Error("Failed to fetch data");
       }
 
       const data = await response.json();
       setSearchResults(data.data);
-      setError('');
-      // Clear name search input
-      setSearchTerm('');
+      setError("");
+      setSearchTerm("");
     } catch (error) {
-      setError('An error occurred while fetching data.');
+      setError("An error occurred while fetching data.");
       setSearchResults([]);
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <div className="p-4">
-      <h2 className="text-2xl font-bold mb-4">Book Search</h2>
+      <h2 className="text-4xl font-bold mb-4">Search</h2>
 
       {/* Search by Book Name */}
       <div className="mb-4">
@@ -65,7 +80,10 @@ const BookSearch = () => {
             className="px-4 py-2 border rounded-l w-full focus:outline-none"
             placeholder="Enter book name..."
           />
-          <button onClick={handleSearchByName} className="bg-blue-500 text-white px-4 py-2 rounded-r hover:bg-blue-600 focus:outline-none">
+          <button
+            onClick={handleSearchByName}
+            className="bg-blue-500 text-white px-4 py-2 rounded-r hover:bg-blue-600 focus:outline-none"
+          >
             Search
           </button>
         </div>
@@ -89,7 +107,10 @@ const BookSearch = () => {
             className="px-4 py-2 border rounded-r w-1/2 focus:outline-none"
             placeholder="Enter maximum price..."
           />
-          <button onClick={handleSearchByPriceRange} className="bg-blue-500 text-white px-4 py-2 ml-2 rounded hover:bg-blue-600 focus:outline-none">
+          <button
+            onClick={handleSearchByPriceRange}
+            className="bg-blue-500 text-white px-4 py-2 ml-2 rounded hover:bg-blue-600 focus:outline-none"
+          >
             Search
           </button>
         </div>
@@ -99,20 +120,25 @@ const BookSearch = () => {
       {error && <p className="text-red-500">{error}</p>}
 
       <div>
-        {searchResults.length > 0 ? (
-          <ul>
-            {searchResults.map((book) => (
-              <li key={book._id} className="my-4 border-b pb-4">
-                <h3 className="text-xl font-bold mb-2">{book.title}</h3>
-                <p><strong className="font-bold">Author:</strong> {book.author}</p>
-                <p><strong className="font-bold">Price:</strong> ${book.price}</p>
-                <p><strong className="font-bold">Description:</strong> {book.desc}</p>
-                {/* Add more details as needed */}
-              </li>
-            ))}
-          </ul>
+        {loading ? (
+          <div className="flex items-center justify-center my-8">
+            <Loader />
+          </div>
         ) : (
-          <p className="mt-4">No results found.</p>
+          <div className="mt-8 px-4">
+            <h4 className="text-3xl text-black">Search Result</h4>
+            {searchResults && searchResults.length > 0 ? (
+              <div className="my-8 grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 gap-4">
+                {searchResults.map((book, index) => (
+                  <div key={index}>
+                    <BookCard data={book} />
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <p className="mt-4 text-red-600 font-semibold">No results found.</p>
+            )}
+          </div>
         )}
       </div>
     </div>
