@@ -14,7 +14,7 @@ const BookSearch = () => {
     try {
       setLoading(true);
       const response = await fetch(
-        `http://localhost:1000/api/v1/search-books?name=${encodeURIComponent(
+        `https://book-store-server-seven.vercel.app/api/v1/search-books?name=${encodeURIComponent(
           searchTerm
         )}`
       );
@@ -44,7 +44,7 @@ const BookSearch = () => {
       }
       setLoading(true);
       const response = await fetch(
-        `http://localhost:1000/api/v1/books-in-price-range?minPrice=${encodeURIComponent(
+        `https://book-store-server-seven.vercel.app/api/v1/books-in-price-range?minPrice=${encodeURIComponent(
           minPrice
         )}&maxPrice=${encodeURIComponent(maxPrice)}`
       );
