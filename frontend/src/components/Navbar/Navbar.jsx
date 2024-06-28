@@ -51,7 +51,7 @@ const Navbar = () => {
             </Link>
           </div>
           <button
-            className="block  md:hidden text-white text-2xl"
+            className=" block md:hidden text-white text-2xl"
             onClick={() =>
               MobileNav === "hidden"
                 ? setMobileNav("block")
