@@ -10,7 +10,7 @@ const RecentlyAdded = () => {
         const fetchData = async () => {
             try {
                 const response = await axios.get(
-                    "http://localhost:1000/api/v1/get-recent-books"
+                    "https://book-store-server-seven.vercel.app/api/v1/get-recent-books"
                 );
                 setData(response.data.data);
             } catch (error) {

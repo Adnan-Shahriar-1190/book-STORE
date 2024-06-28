@@ -11,7 +11,7 @@ const AllBooks = () => {
         const fetchData = async () => {
             try {
                 const response = await axios.get(
-                    "http://localhost:1000/api/v1/get-all-books"
+                    "https://book-store-server-seven.vercel.app/api/v1/get-all-books"
                 );
                 setData(response.data.data);
             } catch (error) {
