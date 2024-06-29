@@ -66,23 +66,27 @@ const BookSearch = () => {
   };
 
   return (
-    <div className="bg-gradient-to-r from-blue-500 to-green-500 p-6 bg-gray-100 min-h-screen">
-      <h2 className="text-5xl font-extrabold mb-6 text-gray-800">Search Books</h2>
+    <div className="bg-gradient-to-r from-blue-500 to-green-500 p-6 min-h-screen flex flex-col items-start">
+      <h2 className="text-5xl font-extrabold mb-6 text-gray-800">
+        Search Books
+      </h2>
 
       {/* Search by Book Name */}
-      <div className="mb-6">
-        <label className="block mb-2 text-gray-700">Search Books by Name:</label>
+      <div className="mb-6 w-full max-w-md">
+        <h1 className="block mb-2 text-gray-700 text-xl font-semibold">
+          Search Books by Name:
+        </h1>
         <div className="flex">
           <input
             type="text"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="px-4 py-2 border border-gray-300 rounded-l shadow-sm w-full focus:outline-none focus:ring-2 focus:ring-blue-400"
+            className="px-4 py-2 border border-r-0 border-gray-300 rounded-l w-full focus:outline-none focus:ring-2 focus:ring-blue-400"
             placeholder="Enter book name..."
           />
           <button
             onClick={handleSearchByName}
-            className="bg-blue-600 text-white px-4 py-2 rounded-r shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400"
+            className="bg-blue-600 text-white px-4 py-2 rounded-r hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400"
           >
             Search
           </button>
@@ -90,26 +94,28 @@ const BookSearch = () => {
       </div>
 
       {/* Search by Price Range */}
-      <div className="mb-6">
-        <label className="block mb-2 text-gray-700">Search Books by Price Range:</label>
+      <div className="mb-6 w-full max-w-md">
+        <label className="block mb-2 text-gray-700 text-xl font-semibold">
+          Search Books by Price Range:
+        </label>
         <div className="flex">
           <input
             type="number"
             value={minPrice}
             onChange={(e) => setMinPrice(e.target.value)}
-            className="px-4 py-2 border border-gray-300 rounded-l shadow-sm w-1/2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+            className="px-4 py-2 border border-r-0 border-gray-300 rounded-l w-1/2 focus:outline-none focus:ring-2 focus:ring-blue-400"
             placeholder="Min price..."
           />
           <input
             type="number"
             value={maxPrice}
             onChange={(e) => setMaxPrice(e.target.value)}
-            className="px-4 py-2 border border-gray-300 rounded-r shadow-sm w-1/2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+            className="px-4 py-2 border border-gray-300 rounded-r w-1/2 focus:outline-none focus:ring-2 focus:ring-blue-400"
             placeholder="Max price..."
           />
           <button
             onClick={handleSearchByPriceRange}
-            className="bg-blue-600 text-white px-4 py-2 ml-2 rounded shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400"
+            className="bg-blue-600 text-white px-4 py-2 ml-2 rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400"
           >
             Search
           </button>
@@ -119,13 +125,13 @@ const BookSearch = () => {
       {/* Error and Results Display */}
       {error && <p className="text-red-500">{error}</p>}
 
-      <div>
+      <div className="w-full">
         {loading ? (
           <div className="flex items-center justify-center my-8">
             <Loader />
           </div>
         ) : (
-          <div className="mt-8 px-4">
+          <div className="mt-8 px-4 w-full">
             <h4 className="text-3xl text-gray-700">Search Result</h4>
             {searchResults && searchResults.length > 0 ? (
               <div className="my-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
@@ -135,9 +141,11 @@ const BookSearch = () => {
                   </div>
                 ))}
               </div>
-            ) : (
-              <p className="mt-4 text-white-600 font-semibold">No results found.</p>
-            )}
+            ) : searchResults !== null ? (
+              <p className="mt-4 text-3xl text-white-600 font-semibold">
+                No results found.
+              </p>
+            ) : null}
           </div>
         )}
       </div>

@@ -171,5 +171,31 @@ router.get("/books-in-price-range", async (req, res) => {
 });
 
 
+router.get("/search-books-by-language", [
+  query('language').isString().trim().escape(),
+], async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+
+  const { language } = req.query;
+
+  try {
+    const books = await Book.find({
+      language: new RegExp(language, 'i') // case-insensitive search for language
+    });
+
+    res.status(200).json({
+      status: 'Success',
+      data: books,
+    });
+  } catch (error) {
+    console.error("Error searching books by language:", error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
+
 
 module.exports = router;
