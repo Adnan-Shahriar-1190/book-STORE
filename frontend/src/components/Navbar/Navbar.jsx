@@ -64,7 +64,7 @@ const Navbar = () => {
       </nav>
 
       <div
-        className={`${MobileNav} bg-gradient-to-r from-purple-500 to-blue-500 h-screen absolute top-0 left-0 w-full z-40 flex flex-col items-center justify-center`}
+        className={`${MobileNav} bg-gradient-to-r from-blue-900 to-green-900 h-screen absolute top-0 left-0 w-full z-40 flex flex-col items-center justify-center`}
       >
         {links.map((items, i) => (
           <Link
