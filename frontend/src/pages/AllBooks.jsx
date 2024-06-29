@@ -7,21 +7,20 @@ const AllBooks = () => {
 
   const [data, setData] = useState();
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await axios.get(
-                    "https://book-store-server-seven.vercel.app/api/v1/get-all-books"
-                );
-                setData(response.data.data);
-            } catch (error) {
-                console.error("Error fetching data:", error);
-            }
-        };
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          "https://book-store-server-seven.vercel.app/api/v1/get-all-books"
+        );
+        setData(response.data.data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
 
-        fetchData();
-    }, []);
-
+    fetchData();
+  }, []);
 
   return (
     <div className="bg-gradient-to-r from-blue-500 to-green-500 px-4">
@@ -31,11 +30,11 @@ const AllBooks = () => {
           <Loader />
         </div>
       )}
-      <div className="my-8 grid gird-cols-1 sm:grid-cols-3 md:grid-cols-4 gap-4">
+      <div className="my-8 grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 gap-4">
         {data &&
           data.map((book, index) => (
             <div key={index}>
-              <BookCard data={book} />{" "}
+              <BookCard data={book} />
             </div>
           ))}
       </div>
