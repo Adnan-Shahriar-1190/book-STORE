@@ -24,7 +24,7 @@ const AllBooks = () => {
 
   return (
     <div className="bg-gradient-to-r from-blue-500 to-green-500 px-4">
-      <h4 className="text-3xl text-yellow-100">All Books</h4>
+      <h4 className="text-3xl text-zinc-800 font-semibold pt-3">All Books</h4>
       {!data && (
         <div className="flex items-center justify-center my-8">
           <Loader />

@@ -6,7 +6,7 @@ const BookSearch = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [minPrice, setMinPrice] = useState("");
   const [maxPrice, setMaxPrice] = useState("");
-  const [searchResults, setSearchResults] = useState(null); // Change to null initially
+  const [searchResults, setSearchResults] = useState(null); 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
@@ -24,7 +24,7 @@ const BookSearch = () => {
       const data = await response.json();
       setSearchResults(data.data);
       setError("");
-      // Clear price search inputs
+     
       setMinPrice("");
       setMaxPrice("");
     } catch (error) {
@@ -73,7 +73,7 @@ const BookSearch = () => {
 
       {/* Search by Book Name */}
       <div className="mb-6 w-full max-w-md">
-        <h1 className="block mb-2 text-gray-700 text-xl font-semibold">
+        <h1 className="block mb-1 text-gray-800 text-xl font-semibold">
           Search Books by Name:
         </h1>
         <div className="flex">
@@ -86,7 +86,7 @@ const BookSearch = () => {
           />
           <button
             onClick={handleSearchByName}
-            className="bg-blue-600 text-white px-4 py-2 rounded-r hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400"
+            className="bg-blue-600 text-white px-4 py-2 mx-2 rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400"
           >
             Search
           </button>
@@ -95,7 +95,7 @@ const BookSearch = () => {
 
       {/* Search by Price Range */}
       <div className="mb-6 w-full max-w-md">
-        <label className="block mb-2 text-gray-700 text-xl font-semibold">
+        <label className="block mb-1 text-gray-800 text-xl font-semibold">
           Search Books by Price Range:
         </label>
         <div className="flex">
@@ -103,7 +103,7 @@ const BookSearch = () => {
             type="number"
             value={minPrice}
             onChange={(e) => setMinPrice(e.target.value)}
-            className="px-4 py-2 border border-r-0 border-gray-300 rounded-l w-1/2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+            className="px-4 py-2 mx-1 border border-r-0 border-gray-600 rounded-l w-1/2 focus:outline-none focus:ring-2 focus:ring-blue-400"
             placeholder="Min price..."
           />
           <input
@@ -131,8 +131,8 @@ const BookSearch = () => {
             <Loader />
           </div>
         ) : (
-          <div className="mt-8 px-4 w-full">
-            <h4 className="text-3xl text-gray-700">Search Result</h4>
+          <div className="mt-2 px-2 w-full">
+            <h4 className="text-3xl text-gray-900">Search Result :</h4>
             {searchResults && searchResults.length > 0 ? (
               <div className="my-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                 {searchResults.map((book, index) => (
