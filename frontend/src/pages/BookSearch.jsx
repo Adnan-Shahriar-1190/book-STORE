@@ -6,57 +6,33 @@ const BookSearch = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [minPrice, setMinPrice] = useState("");
   const [maxPrice, setMaxPrice] = useState("");
-  const [searchResults, setSearchResults] = useState(null); 
+  const [searchResults, setSearchResults] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  const handleSearchByName = async () => {
+  const handleSearch = async () => {
     try {
       setLoading(true);
-      const response = await fetch(
-        `https://book-store-server-seven.vercel.app/api/v1/search-books?name=${encodeURIComponent(
-          searchTerm
-        )}`
-      );
+      let url = "https://book-store-server-seven.vercel.app/api/v1/search-books?";
+      if (searchTerm) {
+        url += `name=${encodeURIComponent(searchTerm)}`;
+      }
+      if (minPrice && maxPrice) {
+        url += `${searchTerm ? '&' : ''}minPrice=${encodeURIComponent(minPrice)}&maxPrice=${encodeURIComponent(maxPrice)}`;
+      }
+
+      const response = await fetch(url);
       if (!response.ok) {
         throw new Error("Failed to fetch data");
       }
+
       const data = await response.json();
       setSearchResults(data.data);
       setError("");
-     
+
+      setSearchTerm("");
       setMinPrice("");
       setMaxPrice("");
-    } catch (error) {
-      setError("An error occurred while fetching data.");
-      setSearchResults([]);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleSearchByPriceRange = async () => {
-    try {
-      if (!minPrice || !maxPrice) {
-        setError("Please provide both minPrice and maxPrice");
-        setSearchResults([]);
-        return;
-      }
-      setLoading(true);
-      const response = await fetch(
-        `https://book-store-server-seven.vercel.app/api/v1/books-in-price-range?minPrice=${encodeURIComponent(
-          minPrice
-        )}&maxPrice=${encodeURIComponent(maxPrice)}`
-      );
-
-      if (!response.ok) {
-        throw new Error("Failed to fetch data");
-      }
-
-      const data = await response.json();
-      setSearchResults(data.data);
-      setError("");
-      setSearchTerm("");
     } catch (error) {
       setError("An error occurred while fetching data.");
       setSearchResults([]);
@@ -71,12 +47,12 @@ const BookSearch = () => {
         Search Books
       </h2>
 
-      {/* Search by Book Name */}
+      {/* Search Parameters */}
       <div className="mb-6 w-full max-w-md">
         <h1 className="block mb-1 text-gray-800 text-xl font-semibold">
-          Search Books by Name:
+          Search Books:
         </h1>
-        <div className="flex">
+        <div className="mb-4">
           <input
             type="text"
             value={searchTerm}
@@ -84,21 +60,8 @@ const BookSearch = () => {
             className="px-4 py-2 border border-r-0 border-gray-300 rounded-l w-full focus:outline-none focus:ring-2 focus:ring-blue-400"
             placeholder="Enter book name..."
           />
-          <button
-            onClick={handleSearchByName}
-            className="bg-blue-600 text-white px-4 py-2 mx-2 rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400"
-          >
-            Search
-          </button>
         </div>
-      </div>
-
-      {/* Search by Price Range */}
-      <div className="mb-6 w-full max-w-md">
-        <label className="block mb-1 text-gray-800 text-xl font-semibold">
-          Search Books by Price Range:
-        </label>
-        <div className="flex">
+        <div className="flex mb-4">
           <input
             type="number"
             value={minPrice}
@@ -113,13 +76,13 @@ const BookSearch = () => {
             className="px-4 py-2 border border-gray-300 rounded-r w-1/2 focus:outline-none focus:ring-2 focus:ring-blue-400"
             placeholder="Max price..."
           />
-          <button
-            onClick={handleSearchByPriceRange}
-            className="bg-blue-600 text-white px-4 py-2 ml-2 rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400"
-          >
-            Search
-          </button>
         </div>
+        <button
+          onClick={handleSearch}
+          className="bg-blue-600 text-white px-4 py-2 mx-2 rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400"
+        >
+          Search
+        </button>
       </div>
 
       {/* Error and Results Display */}
