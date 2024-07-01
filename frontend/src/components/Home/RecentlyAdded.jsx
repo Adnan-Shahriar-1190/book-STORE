@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import axios from "axios";
 import BookCard from '../BookCard/BookCard';
 import Loader from '../Loader/Loader';
-
 const RecentlyAdded = () => {
     const [data, setData] = useState();
 
