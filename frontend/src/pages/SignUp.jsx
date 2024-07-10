@@ -1,7 +1,44 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const Signup = () => {
+  const [Values, setValues] = useState({
+    username: "",
+    email: "",
+    password: "",
+    address: "",
+  });
+
+  const navigate = useNavigate();
+
+  const change = (e) => {
+    const { name, value } = e.target;
+    setValues({ ...Values, [name]: value });
+  };
+
+  const submit = async () => {
+    try {
+      if (
+        Values.username === "" ||
+        Values.email === "" ||
+        Values.password === "" ||
+        Values.address === ""
+      ) {
+        alert("All fields are required");
+      } else {
+        const response = await axios.post(
+          "https://book-store-server-seven.vercel.app/api/v1/sign-up",
+          Values
+        );
+        alert(response.data.message);
+        navigate("/LogIn");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className="bg-gradient-to-r from-blue-500 to-green-500 min-h-screen flex items-center justify-center">
       <div className="bg-white p-10 rounded-lg shadow-lg w-full max-w-md">
@@ -21,6 +58,8 @@ const Signup = () => {
               placeholder="Enter your name"
               name="username"
               required
+              value={Values.username}
+              onChange={change}
             />
           </div>
 
@@ -35,6 +74,8 @@ const Signup = () => {
               placeholder="Enter your email"
               name="email"
               required
+              value={Values.email}
+              onChange={change}
             />
           </div>
 
@@ -49,6 +90,8 @@ const Signup = () => {
               placeholder="Enter your password"
               name="password"
               required
+              value={Values.password}
+              onChange={change}
             />
           </div>
 
@@ -63,6 +106,8 @@ const Signup = () => {
               placeholder="Address"
               name="address"
               required
+              value={Values.address}
+              onChange={change}
             />
           </div>
 
@@ -70,6 +115,7 @@ const Signup = () => {
             <button
               type="submit"
               className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-600"
+              onClick={submit}
             >
               Sign Up
             </button>
