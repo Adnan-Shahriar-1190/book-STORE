@@ -1,24 +1,31 @@
-import React from 'react';
+import React from "react";
+import { Link } from "react-router-dom";
 
 const Signup = () => {
   return (
     <div className="bg-gradient-to-r from-blue-500 to-green-500 min-h-screen flex items-center justify-center">
       <div className="bg-white p-10 rounded-lg shadow-lg w-full max-w-md">
-        <h2 className="text-2xl font-bold mb-6 text-center text-gray-800">Sign Up</h2>
-        <form>
-          <div className="mb-4">
-            <label className="block text-gray-700 mb-2" htmlFor="name">
-              Name
+        <h2 className="text-2xl font-bold mb-6 text-center text-gray-800">
+          Sign Up
+        </h2>
+
+        <div className="mt-4">
+          <div>
+            <label htmlFor="username" className="text-gray-700">
+              Username
             </label>
             <input
               type="text"
-              id="name"
+              id="username"
               className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
               placeholder="Enter your name"
+              name="username"
+              required
             />
           </div>
+
           <div className="mb-4">
-            <label className="block text-gray-700 mb-2" htmlFor="email">
+            <label htmlFor="email" className="block text-gray-700 mb-2">
               Email
             </label>
             <input
@@ -26,10 +33,13 @@ const Signup = () => {
               id="email"
               className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
               placeholder="Enter your email"
+              name="email"
+              required
             />
           </div>
+
           <div className="mb-4">
-            <label className="block text-gray-700 mb-2" htmlFor="password">
+            <label htmlFor="password" className="block text-gray-700 mb-2">
               Password
             </label>
             <input
@@ -37,29 +47,43 @@ const Signup = () => {
               id="password"
               className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
               placeholder="Enter your password"
+              name="password"
+              required
             />
           </div>
+
           <div className="mb-6">
-            <label className="block text-gray-700 mb-2" htmlFor="confirm-password">
-              Confirm Password
+            <label htmlFor="address" className="block text-gray-700 mb-2">
+              Address
             </label>
-            <input
-              type="password"
-              id="confirm-password"
-              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
-              placeholder="Confirm your password"
+            <textarea
+              id="address"
+              className="w-full mt-2 p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
+              rows="3"
+              placeholder="Address"
+              name="address"
+              required
             />
           </div>
-          <button
-            type="submit"
-            className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-600"
-          >
-            Sign Up
-          </button>
-        </form>
-        <div className="mt-4 text-center">
+
+          <div>
+            <button
+              type="submit"
+              className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-600"
+            >
+              Sign Up
+            </button>
+          </div>
+
+          <p className="flex mt-4 items-center justify-center font-semibold text-gray-600">
+            or
+          </p>
+
           <p className="text-gray-600">
-            Already have an account? <a href="#" className="text-blue-600 hover:underline">Log in</a>
+            Already have an account? &nbsp;
+            <Link to="/login" className="hover:text-blue-500">
+              <u>Log In</u>
+            </Link>
           </p>
         </div>
       </div>
