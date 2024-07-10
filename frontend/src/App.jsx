@@ -8,6 +8,7 @@ import SignUp from "./pages/SignUp";
 import LogIn from "./pages/LogIn";
 import BookSearch from "./pages/BookSearch";
 import Profile from "./pages/Profile";
+import ViewBookDetails from "./components/ViewBookDetails/ViewBookDetails";
 const App = () => {
   return (
     <div>
@@ -20,6 +21,8 @@ const App = () => {
           <Route  path="/LogIn" element={<LogIn />} />
           <Route  path="/BookSearch" element={<BookSearch />} />
           <Route  path="/profile" element={<Profile />} />
+          <Route path="/view-book-details/:id" element={<ViewBookDetails/>}/>
+
         </Routes>
         <Footer />
       </Router>
