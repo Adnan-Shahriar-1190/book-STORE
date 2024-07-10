@@ -1,7 +1,52 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { authActions } from '../Store/auth';
+import axios from 'axios';
 
 const LogIn = () => {
+  const [values, setValues] = useState({
+    username: '',
+    password: '',
+  });
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const change = (e) => {
+    const { name, value } = e.target;
+    setValues({
+      ...values,
+      [name]: value,
+    });
+  };
+
+  const submit = async () => {
+    try {
+      if (values.username === "" || values.password === "") {
+        alert("All fields are required");
+      } else {
+        const response = await axios.post("http://localhost:1000/api/v1/sign-in", values);
+        console.log("Login response:", response.data);
+
+        dispatch(authActions.login());
+        dispatch(authActions.changeRole(response.data.role));
+
+        localStorage.setItem("id", response.data.id);
+        localStorage.setItem("token", response.data.token);
+        localStorage.setItem("role", response.data.role);
+
+        navigate("/profile");
+      }
+    } catch (error) {
+      console.error("Error during login:", error);
+      if (error.response) {
+        alert(error.response.data.message);
+      } else {
+        alert("An error occurred. Please try again.");
+      }
+    }
+  };
   return (
     <div className="bg-gradient-to-r from-blue-500 to-green-500 min-h-screen flex items-center justify-center">
       <div className="bg-white p-10 rounded-lg shadow-lg w-full max-w-md">
@@ -21,6 +66,8 @@ const LogIn = () => {
               placeholder="Enter your name"
               name="username"
               required
+              value={values.username}
+              onChange={change}
             />
           </div>
 
@@ -34,7 +81,9 @@ const LogIn = () => {
               className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
               placeholder="Enter your password"
               name="password"
-              required
+              rrequired
+              value={values.password}
+              onChange={change}
             />
           </div>
 
@@ -42,6 +91,7 @@ const LogIn = () => {
             <button
               type="submit"
               className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-600"
+              onClick={submit}
             >
               LogIn
             </button>

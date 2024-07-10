@@ -1,7 +1,45 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
+import axios from 'axios';
 
-const Signup = () => {
+const SignUp = () => {
+  const [values, setValues] = useState({
+    username: '',
+    email: '',
+    password: '',
+    address: '',
+  });
+
+  const navigate = useNavigate();
+
+  const change = (e) => {
+    const { name, value } = e.target;
+    setValues({
+      ...values,
+      [name]: value,
+    });
+  };
+
+  const submit = async () => {
+    try {
+      if (values.username === "" || values.email === "" || values.password === "" || values.address === "") {
+        alert("All fields are required");
+      } else {
+        const response = await axios.post("http://localhost:1000/api/v1/sign-up", values);
+        console.log("Signup Successful:", response.data);
+        navigate("/LogIn"); // Redirect after successful signup
+      }
+    } catch (error) {
+      console.error("Axios Error:", error);
+      if (error.response) {
+        console.log("Response Data:", error.response.data);
+        console.log("Response Status:", error.response.status);
+        alert("Error: " + error.response.data.message); // Example: show error message to user
+      } else {
+        console.error("General Error:", error.message);
+      }
+    }
+  };
   return (
     <div className="bg-gradient-to-r from-blue-500 to-green-500 min-h-screen flex items-center justify-center">
       <div className="bg-white p-10 rounded-lg shadow-lg w-full max-w-md">
@@ -21,6 +59,8 @@ const Signup = () => {
               placeholder="Enter your name"
               name="username"
               required
+              value={values.username}
+              onChange={change}
             />
           </div>
 
@@ -35,6 +75,8 @@ const Signup = () => {
               placeholder="Enter your email"
               name="email"
               required
+              value={values.email}
+              onChange={change}
             />
           </div>
 
@@ -49,6 +91,8 @@ const Signup = () => {
               placeholder="Enter your password"
               name="password"
               required
+              value={values.password}
+              onChange={change}
             />
           </div>
 
@@ -63,6 +107,8 @@ const Signup = () => {
               placeholder="Address"
               name="address"
               required
+              value={values.address}
+              onChange={change}
             />
           </div>
 
@@ -70,6 +116,7 @@ const Signup = () => {
             <button
               type="submit"
               className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-600"
+              onClick={submit}
             >
               Sign Up
             </button>
@@ -91,4 +138,4 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+export default SignUp;
