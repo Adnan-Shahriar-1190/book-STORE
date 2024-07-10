@@ -6,7 +6,6 @@ import BookSearch from './BookSearch';
 const AllBooks = () => {
 
   const [data, setData] = useState();
-
   useEffect(() => {
     const fetchData = async () => {
       try {
