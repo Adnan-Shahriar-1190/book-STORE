@@ -17,7 +17,7 @@ const user = new mongoose.Schema(
       required: true,
     },
 
-    address: {
+    phone: {
       type: String,
       required: true,
     },

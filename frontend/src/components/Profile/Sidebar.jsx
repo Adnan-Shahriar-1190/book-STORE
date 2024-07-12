@@ -1,8 +1,7 @@
-import React from 'react';
-import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { authActions } from '../../store/auth';
-
+import React from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { authActions } from "../../store/auth";
 
 const Sidebar = ({ data }) => {
   const dispatch = useDispatch();
@@ -19,7 +18,7 @@ const Sidebar = ({ data }) => {
     dispatch(authActions.logout());
 
     // Navigate to login page
-    navigate('/Login');
+    navigate("/Login");
   };
 
   if (!data) {
@@ -36,8 +35,10 @@ const Sidebar = ({ data }) => {
       />
       <h2 className="text-xl font-bold text-white">{data.username}</h2>
       <p className="text-gray-300">{data.email}</p>
+      <p className="text-gray-300">{data.phone}</p>
+
       <button
-        className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mt-4"
+        className="bg-red-500 text-white font-bold py-2 px-4 rounded mt-4 hover:bg-black  hover:text-red-800"
         aria-label="Logout Button"
         onClick={handleLogout}
       >
