@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
@@ -8,20 +9,37 @@ const SignUp = () => {
     email: '',
     password: '',
     address: '',
+=======
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+
+const Signup = () => {
+  const [Values, setValues] = useState({
+    username: "",
+    email: "",
+    password: "",
+    address: "",
+>>>>>>> main
   });
 
   const navigate = useNavigate();
 
   const change = (e) => {
     const { name, value } = e.target;
+<<<<<<< HEAD
     setValues({
       ...values,
       [name]: value,
     });
+=======
+    setValues({ ...Values, [name]: value });
+>>>>>>> main
   };
 
   const submit = async () => {
     try {
+<<<<<<< HEAD
       if (values.username === "" || values.email === "" || values.password === "" || values.address === "") {
         alert("All fields are required");
       } else {
@@ -40,6 +58,28 @@ const SignUp = () => {
       }
     }
   };
+=======
+      if (
+        Values.username === "" ||
+        Values.email === "" ||
+        Values.password === "" ||
+        Values.address === ""
+      ) {
+        alert("All fields are required");
+      } else {
+        const response = await axios.post(
+          "https://book-store-server-seven.vercel.app/api/v1/sign-up",
+          Values
+        );
+        alert(response.data.message);
+        navigate("/LogIn");
+      }
+    } catch (error) {
+      alert(error.response.data.message);
+    }
+  };
+
+>>>>>>> main
   return (
     <div className="bg-gradient-to-r from-blue-500 to-green-500 min-h-screen flex items-center justify-center">
       <div className="bg-white p-10 rounded-lg shadow-lg w-full max-w-md">
@@ -59,7 +99,11 @@ const SignUp = () => {
               placeholder="Enter your name"
               name="username"
               required
+<<<<<<< HEAD
               value={values.username}
+=======
+              value={Values.username}
+>>>>>>> main
               onChange={change}
             />
           </div>
@@ -75,7 +119,11 @@ const SignUp = () => {
               placeholder="Enter your email"
               name="email"
               required
+<<<<<<< HEAD
               value={values.email}
+=======
+              value={Values.email}
+>>>>>>> main
               onChange={change}
             />
           </div>
@@ -91,7 +139,11 @@ const SignUp = () => {
               placeholder="Enter your password"
               name="password"
               required
+<<<<<<< HEAD
               value={values.password}
+=======
+              value={Values.password}
+>>>>>>> main
               onChange={change}
             />
           </div>
@@ -107,7 +159,11 @@ const SignUp = () => {
               placeholder="Address"
               name="address"
               required
+<<<<<<< HEAD
               value={values.address}
+=======
+              value={Values.address}
+>>>>>>> main
               onChange={change}
             />
           </div>

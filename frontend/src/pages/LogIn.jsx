@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
@@ -19,10 +20,31 @@ const LogIn = () => {
       ...values,
       [name]: value,
     });
+=======
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import auth, {authActions} from "../store/auth"
+import {useDispatch} from "react-redux"
+import axios from "axios";
+
+const LogIn = () => {
+  const [Values, setValues] = useState({
+    username: "",
+    password: "",
+  });
+
+  const navigate = useNavigate();
+  const dispatch =  useDispatch();
+
+  const change = (e) => {
+    const { name, value } = e.target;
+    setValues({ ...Values, [name]: value });
+>>>>>>> main
   };
 
   const submit = async () => {
     try {
+<<<<<<< HEAD
       if (values.username === "" || values.password === "") {
         alert("All fields are required");
       } else {
@@ -47,6 +69,27 @@ const LogIn = () => {
       }
     }
   };
+=======
+      if (Values.username === "" || Values.password === "") {
+        alert("All fields are required");
+      } else {
+        const response = await axios.post(
+          "https://book-store-server-seven.vercel.app/api/v1/sign-in",
+          Values
+        );
+        dispatch(authActions.login());
+        dispatch(authActions.changeRole(response.data.role));
+        localStorage.setItem("id", response.data.id);
+        localStorage.setItem("token",response.data.token);
+        localStorage.setItem("role",response.data.role);
+        navigate("/Home");
+      }
+    } catch (error) {
+      alert(error.response.data.message);
+    }
+  };
+
+>>>>>>> main
   return (
     <div className="bg-gradient-to-r from-blue-500 to-green-500 min-h-screen flex items-center justify-center">
       <div className="bg-white p-10 rounded-lg shadow-lg w-full max-w-md">
@@ -66,7 +109,11 @@ const LogIn = () => {
               placeholder="Enter your name"
               name="username"
               required
+<<<<<<< HEAD
               value={values.username}
+=======
+              value={Values.username}
+>>>>>>> main
               onChange={change}
             />
           </div>
@@ -81,8 +128,13 @@ const LogIn = () => {
               className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
               placeholder="Enter your password"
               name="password"
+<<<<<<< HEAD
               rrequired
               value={values.password}
+=======
+              required
+              value={Values.password}
+>>>>>>> main
               onChange={change}
             />
           </div>

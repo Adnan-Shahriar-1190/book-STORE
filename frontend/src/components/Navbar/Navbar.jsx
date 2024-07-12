@@ -1,19 +1,30 @@
 import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { FaGripLines } from "react-icons/fa";
+import { useSelector } from "react-redux";
 
 import { useSelector } from "react-redux";
 const Navbar = () => {
   const links = [
     { title: "Home", link: "/" },
     { title: "All Books", link: "/all-books" },
+    { title: "Cart", link: "/cart" },
     { title: "Profile", link: "/profile" },
   ];
+<<<<<<< HEAD
   const isLoggedIn= useSelector((state)=>state.auth.isLoggedIn);
   if (isLoggedIn===false)
   {
     links.splice(3,3);
   }
+=======
+
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+  if (isLoggedIn === false) {
+    links.splice(2, 2);
+  }
+
+>>>>>>> main
   const [MobileNav, setMobileNav] = useState("hidden");
   const location = useLocation();
 
@@ -47,20 +58,22 @@ const Navbar = () => {
           </div>
         </div>
 
-        <div className="hidden md:flex gap-6 items-center">
-          <Link
-            to="/SignUp"
-            className="px-4 py-2 bg-yellow-300 text-purple-800 rounded hover:bg-white hover:text-purple-800 transition-all duration-300"
-          >
-            SignUp
-          </Link>
-          <Link
-            to="/LogIn"
-            className="px-4 py-2 border border-yellow-300 rounded hover:bg-yellow-300 hover:text-purple-800 transition-all duration-300"
-          >
-            LogIn
-          </Link>
-        </div>
+        {isLoggedIn === false && (
+          <div className="hidden md:flex gap-6 items-center">
+            <Link
+              to="/SignUp"
+              className="px-4 py-2 bg-yellow-300 text-purple-800 rounded hover:bg-white hover:text-purple-800 transition-all duration-300"
+            >
+              SignUp
+            </Link>
+            <Link
+              to="/LogIn"
+              className="px-4 py-2 border border-yellow-300 rounded hover:bg-yellow-300 hover:text-purple-800 transition-all duration-300"
+            >
+              LogIn
+            </Link>
+          </div>
+        )}
 
         <button
           className="block md:hidden text-white text-3xl"
@@ -96,18 +109,22 @@ const Navbar = () => {
           </Link>
         ))}
 
-        <Link
-          to="/SignUp"
-          className="px-4 py-2 mb-4 text-2xl bg-yellow-300 text-purple-800 rounded hover:bg-white hover:text-purple-800 transition-all duration-300"
-        >
-          SignUp
-        </Link>
-        <Link
-          to="/LogIn"
-          className="px-4 py-2 mb-4 text-2xl border border-yellow-300 rounded hover:bg-yellow-300 hover:text-purple-800 transition-all duration-300"
-        >
-          LogIn
-        </Link>
+        {isLoggedIn === false && (
+          <>
+            <Link
+              to="/SignUp"
+              className="px-4 py-2 mb-4 text-2xl bg-yellow-300 text-purple-800 rounded hover:bg-white hover:text-purple-800 transition-all duration-300"
+            >
+              SignUp
+            </Link>
+            <Link
+              to="/LogIn"
+              className="px-4 py-2 mb-4 text-2xl border border-yellow-300 rounded hover:bg-yellow-300 hover:text-purple-800 transition-all duration-300"
+            >
+              LogIn
+            </Link>
+          </>
+        )}
       </div>
     </>
   );
