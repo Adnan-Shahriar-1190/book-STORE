@@ -68,7 +68,7 @@ const Profile = () => {
 
   return (
     <div 
-      className="bg-gradient-to-r from-blue-500 to-green-500 px-4 min-h-screen bg-cover bg-center text-white px-10 py-8" 
+      className="bg-gradient-to-r from-blue-500 to-green-500 min-h-screen bg-cover bg-center text-white px-10 py-8" 
     > 
       {!Profile && (
         <div className='bg-gradient-to-r from-blue-500 to-green-500 px-4 w-full h-[100%] flex items-center justify-center'>
