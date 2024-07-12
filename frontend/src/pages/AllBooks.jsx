@@ -24,13 +24,13 @@ const AllBooks = () => {
   return (
     <div className="bg-gradient-to-r from-blue-500 to-green-500 px-4">
       <BookSearch/>
-      <h4 className="text-3xl text-zinc-800 font-semibold pt-3">All Books</h4>
+      <h4 className="bg-gradient-to-r from-blue-500 to-green-500 text-3xl text-zinc-800 font-semibold pt-3">All Books</h4>
       {!data && (
         <div className="flex items-center justify-center my-8">
           <Loader />
         </div>
       )}
-      <div className="my-8 grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 gap-4">
+      <div className="bg-gradient-to-r from-blue-500 to-green-500 my-8 grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 gap-4">
         {data &&
           data.map((book, index) => (
             <div key={index}>
