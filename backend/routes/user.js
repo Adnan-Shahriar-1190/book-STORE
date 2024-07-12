@@ -1,9 +1,12 @@
 const router = require("express").Router();
-const { query, validationResult } = require('express-validator');
+const { query, validationResult } = require("express-validator");
 const User = require("../models/user");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const { authenticateToken } = require("./userAuth");
+
+const JWT_REFRESH_SECRET = "bookStore123";
+const JWT_SECRET = "gameStore123";
 
 // Sign Up
 router.post("/sign-up", async (req, res) => {
@@ -62,7 +65,6 @@ router.post("/sign-in", async (req, res) => {
     if (!existingUser) {
       return res.status(400).json({ message: "Invalid Credentials" });
     }
-
     // Compare the password
     await bcrypt.compare(password, existingUser.password, (err, data) => {
       if (data) {
@@ -70,13 +72,14 @@ router.post("/sign-in", async (req, res) => {
           { name: existingUser.username },
           { role: existingUser.role },
         ];
-        const token = jwt.sign({ authClaims }, "bookStore123", {
-          expiresIn: "30d",
-        });
+        const token = jwt.sign({ authClaims }, "bookStore123", {expiresIn: "10m"});
+        const refreshToken = jwt.sign({ authClaims }, "your_jwt_refresh_secret", {expiresIn: "1d"});
+
         res.status(200).json({
           id: existingUser._id,
           role: existingUser.role,
           token: token,
+          refreshToken: refreshToken
         });
       } else {
         res.status(400).json({ message: "Invalid Credentials" });
@@ -86,6 +89,20 @@ router.post("/sign-in", async (req, res) => {
     res.status(500).json({ message: "Internal server error" });
   }
 });
+
+router.post("/token", (req, res) => {
+  const { token } = req.body;
+  if (!token) return res.status(401).json({ message: "Token is required" });
+
+  jwt.verify(token, JWT_REFRESH_SECRET, (err, user) => {
+      if (err) return res.status(403).json({ message: "Invalid or expired refresh token" });
+      const newAccessToken = jwt.sign({ authClaims: user.authClaims }, JWT_SECRET, { expiresIn: "20m" });
+      res.json({ accessToken: newAccessToken });
+  });
+});
+
+
+
 
 //get-user info
 router.get("/get-user-information", authenticateToken, async (req, res) => {
@@ -114,7 +131,7 @@ router.put("/update-address", authenticateToken, async (req, res) => {
 router.delete("/delete-user", authenticateToken, async (req, res) => {
   try {
     const { id } = req.headers;
-    await User.findByIdAndDelete(id) ;
+    await User.findByIdAndDelete(id);
     return res.status(200).json({ message: "User Deleted successfully" });
   } catch (error) {
     res.status(500).json({ message: "An error occurred" });
@@ -133,7 +150,7 @@ router.get("/search-users", async (req, res) => {
     const users = await User.find({
       $or: [
         { username: { $regex: searchTerm, $options: "i" } }, // Case-insensitive search by username
-        { email: { $regex: searchTerm, $options: "i" } },    // Case-insensitive search by email
+        { email: { $regex: searchTerm, $options: "i" } }, // Case-insensitive search by email
       ],
     }).select("-password");
 
@@ -143,11 +160,10 @@ router.get("/search-users", async (req, res) => {
     });
   } catch (error) {
     console.error("Error searching users:", error);
-    res.status(500).json({ message: "An error occurred while searching users" });
+    res
+      .status(500)
+      .json({ message: "An error occurred while searching users" });
   }
 });
-
-
-
 
 module.exports = router;
