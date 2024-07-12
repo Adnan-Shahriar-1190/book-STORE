@@ -6,12 +6,12 @@ const jwt = require("jsonwebtoken");
 const { authenticateToken } = require("./userAuth");
 
 const JWT_REFRESH_SECRET = "bookStore123";
-const JWT_SECRET = "gameStore123";
+const JWT_SECRET = "bookStore123";
 
 // Sign Up
 router.post("/sign-up", async (req, res) => {
   try {
-    const { username, email, password, address } = req.body;
+    const { username, email, password, phone } = req.body;
 
     // Check username length is more than 4
     if (username.length < 4) {
@@ -47,7 +47,7 @@ router.post("/sign-up", async (req, res) => {
       username: username,
       email: email,
       password: hashedPassword,
-      address: address,
+      phone: phone,
     });
 
     await newUser.save();
