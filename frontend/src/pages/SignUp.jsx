@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-
+import Loader from "../components/Loader/Loader";
 const Signup = () => {
   const [Values, setValues] = useState({
     username: "",
@@ -116,11 +116,12 @@ const Signup = () => {
               type="submit"
               className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-600"
               onClick={submit}
+              
             >
               Sign Up
             </button>
           </div>
-
+          
           <p className="flex mt-4 items-center justify-center font-semibold text-gray-600">
             or
           </p>
