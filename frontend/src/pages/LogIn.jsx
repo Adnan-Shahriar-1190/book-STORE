@@ -40,7 +40,7 @@ const LogIn = () => {
         console.log("Access Token:", localStorage.getItem("token"));
         console.log("Refresh Token:", localStorage.getItem("refreshToken"));
 
-        navigate("/profile");
+        navigate("/");
       }
     } catch (error) {
       console.error("Error during login:", error);

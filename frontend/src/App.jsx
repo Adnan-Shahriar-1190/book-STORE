@@ -19,6 +19,7 @@ const App = () => {
     if (
       localStorage.getItem("id") &&
       localStorage.getItem("token") &&
+      localStorage.getItem("refreshToken") &&
       localStorage.getItem("role")
     ) {
       dispatch(authActions.login());
