@@ -13,7 +13,7 @@ const Profile = () => {
   const fetchProfile = async (token) => {
     try {
       const response = await axios.get(
-        "https://book-store-server-seven.vercel.app/api/v1/get-user-information",
+        "http://localhost:1000/api/v1/get-user-information",
         {
           headers: {
             id: localStorage.getItem('id'),
@@ -38,7 +38,7 @@ const Profile = () => {
     if (refreshToken) {
       try {
         const refreshResponse = await axios.post(
-          "https://book-store-server-seven.vercel.app/api/v1/token",
+          "http://localhost:1000/api/v1/token",
           { token: refreshToken }
         );
         const newAccessToken = refreshResponse.data.accessToken;
