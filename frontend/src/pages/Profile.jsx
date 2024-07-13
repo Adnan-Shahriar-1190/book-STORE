@@ -13,7 +13,7 @@ const Profile = () => {
   const fetchProfile = async (token) => {
     try {
       const response = await axios.get(
-        'https://book-store-server-seven.vercel.app/api/v1/get-user-information',
+        "https://book-store-server-seven.vercel.app/api/v1/get-user-information",
         {
           headers: {
             id: localStorage.getItem('id'),
@@ -38,7 +38,7 @@ const Profile = () => {
     if (refreshToken) {
       try {
         const refreshResponse = await axios.post(
-          'https://book-store-server-seven.vercel.app/api/v1/token',
+          "https://book-store-server-seven.vercel.app/api/v1/token",
           { token: refreshToken }
         );
         const newAccessToken = refreshResponse.data.accessToken;
@@ -50,6 +50,11 @@ const Profile = () => {
         await fetchProfile(newAccessToken);
       } catch (refreshError) {
         console.error('Error refreshing token:', refreshError);
+        if (refreshError.response) {
+          console.error('Response data:', refreshError.response.data);
+          console.error('Response status:', refreshError.response.status);
+          console.error('Response headers:', refreshError.response.headers);
+        }
         setLoading(false);
       }
     } else {

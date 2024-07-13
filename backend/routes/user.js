@@ -5,8 +5,8 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const { authenticateToken } = require("./userAuth");
 
-const JWT_REFRESH_SECRET = "bookStore123";
-const JWT_SECRET = "bookStore123";
+//const JWT_REFRESH_SECRET = "bookStore123";
+//const JWT_SECRET = "bookStore123";
 
 // Sign Up
 router.post("/sign-up", async (req, res) => {
