@@ -12,26 +12,6 @@ const LogIn = () => {
   });
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
   const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
