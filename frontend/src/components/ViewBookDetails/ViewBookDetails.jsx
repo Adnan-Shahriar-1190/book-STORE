@@ -50,6 +50,15 @@ const ViewBookDetails = () => {
             <p className="mt-7 text-black text-3xl font-bold">
               Price : ৳ {data.price}{" "}
             </p>
+            <div>
+              <br></br>
+                <button className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded">
+                  Add to Cart
+                </button>
+                <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded ml-4">
+                  Remove from Cart
+                </button>
+              </div>
           </div>
         </div>
       )}

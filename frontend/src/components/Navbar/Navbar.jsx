@@ -7,7 +7,7 @@ const Navbar = () => {
   const links = [
     { title: "Home", link: "/" },
     { title: "All Books", link: "/all-books" },
-    { title: "Cart", link: "/cart" },
+    { title: "Cart", link: "/Cart" },
     { title: "Profile", link: "/profile" },
   ];
 
@@ -38,7 +38,7 @@ const Navbar = () => {
                 to={items.link}
                 className={`hover:text-yellow-300 transition-all duration-300 ${
                   location.pathname === items.link
-                    ? "bg-yellow-300 text-purple-800 rounded px-3 py-1"
+                    ? "bg-yellow-300 text-zinc-800 rounded px-3 py-1"
                     : ""
                 }`}
                 key={i}
