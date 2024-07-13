@@ -10,28 +10,7 @@ const LogIn = () => {
     username: "",
     password: "",
   });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   
-
   const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();

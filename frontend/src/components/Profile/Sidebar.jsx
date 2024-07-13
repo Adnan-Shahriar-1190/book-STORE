@@ -26,16 +26,16 @@ const Sidebar = ({ data }) => {
   }
 
   return (
-    <div className="bg-zinc-800 p-6 rounded-lg flex flex-col items-center justify-center space-y-4 w-full md:w-64">
+    <div className="bg-zinc-100 p-6 rounded-lg flex flex-col items-center justify-center space-y-4 w-full md:w-64">
       <img
         src={data.avatar}
         alt="Profile Pic"
         className="w-24 h-24 rounded-full"
         aria-label="Profile Picture"
       />
-      <h2 className="text-xl font-bold text-white">{data.username}</h2>
-      <p className="text-gray-300">{data.email}</p>
-      <p className="text-gray-300">{data.phone}</p>
+      <h2 className="text-xl font-bold text-black">{data.username}</h2>
+      <p className="text-zinc-800">{data.email}</p>
+      <p className="text-zinc-800">{data.phone}</p>
 
       <button
         className="bg-red-500 text-white font-bold py-2 px-4 rounded mt-4 hover:bg-black  hover:text-red-800"
