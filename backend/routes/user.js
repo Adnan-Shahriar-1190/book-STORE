@@ -73,7 +73,7 @@ router.post("/sign-in", async (req, res) => {
           { role: existingUser.role },
         ];
         const token = jwt.sign({ authClaims }, "bookStore123", {expiresIn: "10m"});
-        const refreshToken = jwt.sign({ authClaims }, "your_jwt_refresh_secret", {expiresIn: "1d"});
+        const refreshToken = jwt.sign({ authClaims }, "bookStore123", {expiresIn: "1d"});
 
         res.status(200).json({
           id: existingUser._id,
@@ -96,7 +96,7 @@ router.post("/token", (req, res) => {
 
   jwt.verify(token, JWT_REFRESH_SECRET, (err, user) => {
       if (err) return res.status(403).json({ message: "Invalid or expired refresh token" });
-      const newAccessToken = jwt.sign({ authClaims: user.authClaims }, JWT_SECRET, { expiresIn: "20m" });
+      const newAccessToken = jwt.sign({ authClaims: user.authClaims }, "bookStore123", { expiresIn: "20m" });
       res.json({ accessToken: newAccessToken });
   });
 });
