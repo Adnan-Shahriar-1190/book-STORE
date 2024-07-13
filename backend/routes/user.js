@@ -94,7 +94,7 @@ router.post("/token", (req, res) => {
   const { token } = req.body;
   if (!token) return res.status(401).json({ message: "Token is required" });
 
-  jwt.verify(token, JWT_REFRESH_SECRET, (err, user) => {
+  jwt.verify(token, "bookStore123", (err, user) => {
       if (err) return res.status(403).json({ message: "Invalid or expired refresh token" });
       const newAccessToken = jwt.sign({ authClaims: user.authClaims }, "bookStore123", { expiresIn: "20m" });
       res.json({ accessToken: newAccessToken });
