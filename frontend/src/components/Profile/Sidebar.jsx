@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { authActions } from "../../store/auth";
 
 const Sidebar = ({ data }) => {
@@ -8,16 +8,13 @@ const Sidebar = ({ data }) => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    // Clear localStorage items
     localStorage.removeItem("id");
     localStorage.removeItem("token");
     localStorage.removeItem("refreshToken");
     localStorage.removeItem("role");
 
-    // Dispatch logout action (if using Redux for authentication state)
     dispatch(authActions.logout());
 
-    // Navigate to login page
     navigate("/Login");
   };
 
@@ -37,8 +34,33 @@ const Sidebar = ({ data }) => {
       <p className="text-zinc-800">{data.email}</p>
       <p className="text-zinc-800">{data.phone}</p>
 
+      <div className="w-full mt-4 h-[1px] bg-zinc-500 hidden lg:block"></div>
+
+      <div className="w-full flex-col items-center justify-center hidden lg:flex">
+        <Link
+          to="/profile"
+          className="bg-zinc-900 text-zinc-100 font-semibold w-full py-2 text-center hover:bg-slate-500 hover:text-zinc-900 rounded transition-all duration-300"
+        >
+          Favourites
+        </Link>
+
+        <Link
+          to="/profile/orderHistory"
+          className="bg-zinc-900 text-zinc-100 font-semibold w-full py-2 mt-4 text-center hover:bg-slate-500 hover:text-zinc-900 rounded transition-all duration-300"
+        >
+          Order History
+        </Link>
+
+        <Link
+          to="/profile/settings"
+          className="bg-zinc-900 text-zinc-100 font-semibold w-full py-2 mt-4 text-center hover:bg-slate-500 hover:text-zinc-900 rounded transition-all duration-300"
+        >
+          Update Profile
+        </Link>
+      </div>
+
       <button
-        className="bg-red-500 text-white font-bold py-2 px-4 rounded mt-4 hover:bg-black  hover:text-red-800"
+        className="bg-red-500 text-white font-bold py-2 px-4 rounded mt-4 hover:bg-black hover:text-red-800"
         aria-label="Logout Button"
         onClick={handleLogout}
       >
