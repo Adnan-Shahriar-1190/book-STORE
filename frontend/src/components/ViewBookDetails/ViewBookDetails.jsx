@@ -46,10 +46,7 @@ const ViewBookDetails = () => {
               />
               {isLoggedIn === true && role === "user" && (
                 <div className="flex md:flex-col">
-                  <button
-                    className="bg-white rounded-full text-3xl p-3 text-red-800"
-                    onClick={handleFavourite}
-                  >
+                  <button className="bg-white rounded-full text-3xl p-3 text-red-800">
                     <FaHeart />
                   </button>
                   <button className="bg-white rounded-full text-3xl p-2 mt-10 text-blue-950">
