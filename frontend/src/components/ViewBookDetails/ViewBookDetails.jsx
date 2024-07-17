@@ -3,11 +3,18 @@ import axios from "axios";
 import Loader from "../Loader/Loader";
 import { useParams } from "react-router-dom";
 import { GrLanguage } from "react-icons/gr";
+import { FaHeart } from "react-icons/fa";
+import { FaShoppingCart } from "react-icons/fa";
+import { useSelector } from "react-redux";
+import { BiSolidEditAlt } from "react-icons/bi";
+import { MdDeleteSweep } from "react-icons/md";
 
 const ViewBookDetails = () => {
   const { id } = useParams();
-
   const [data, setData] = useState(null);
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+  const role = useSelector((state) => state.auth.role);
+  // console.log(isLoggedIn,role);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -27,13 +34,40 @@ const ViewBookDetails = () => {
   return (
     <>
       {data && (
-        <div className=" px-4 md:px-12 py-8 bg-gradient-to-r from-blue-500 to-green-500 flex flex-col md:flex-row gap-8 ">
-          <div className="bg-zinc-400 bg-opacity-50 rounded p-4 h-[60vh] lg:h-[88vh] w-full lg:w-3/6 flex  items-center justify-center">
-            <img
-              src={data.url}
-              alt="Book cover"
-              className=" h-[50vh] lg:h-[70vh] text-white rounded"
-            />
+        <div className=" px-4 md:px-12 py-8 bg-gradient-to-r from-blue-500 to-green-500 flex flex-col md:flex-row gap-6 ">
+          <div className=" w-full lg:w-3/6 ">
+            {" "}
+            <div className="flex items-center justify-around p-12 rounded bg-zinc-400 bg-opacity-50">
+              {" "}
+              <img
+                src={data.url}
+                alt="Book cover"
+                className=" h-[50vh] lg:h-[70vh] text-white rounded"
+              />
+              {isLoggedIn === true && role === "user" && (
+                <div className="flex md:flex-col">
+                  <button
+                    className="bg-white rounded-full text-3xl p-3 text-red-800"
+                    onClick={handleFavourite}
+                  >
+                    <FaHeart />
+                  </button>
+                  <button className="bg-white rounded-full text-3xl p-2 mt-10 text-blue-950">
+                    <FaShoppingCart />
+                  </button>
+                </div>
+              )}
+              {isLoggedIn === true && role === "admin" && (
+                <div className="flex md:flex-col">
+                  <button className="bg-white rounded-full text-3xl p-3 text-black">
+                    <BiSolidEditAlt />
+                  </button>
+                  <button className="bg-white rounded-full text-3xl p-2 mt-10 text-blue-950">
+                    <MdDeleteSweep />
+                  </button>
+                </div>
+              )}
+            </div>
           </div>
           <div className="p-4 w-3/6">
             <h1 className="text-4xl text-zinc-900 font-bold mt-5">
@@ -52,17 +86,22 @@ const ViewBookDetails = () => {
             </p>
             <div>
               <br></br>
-                <button className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded">
-                  Add to Cart
-                </button>
-                <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded ml-4">
-                  Remove from Cart
-                </button>
-              </div>
+              <button className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded">
+                Add to Cart
+              </button>
+              <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded ml-4">
+                Remove from Cart
+              </button>
+            </div>
           </div>
         </div>
       )}
-      {!data && <div className="h-screen bg-zinc-900 flex items-center justify-center"> <Loader/>{" "} </div>}
+      {!data && (
+        <div className="h-screen bg-zinc-900 flex items-center justify-center">
+          {" "}
+          <Loader />{" "}
+        </div>
+      )}
     </>
   );
 };

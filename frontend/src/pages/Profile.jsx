@@ -68,14 +68,14 @@ const Profile = () => {
   }, [token]);
 
   return (
-    <div className="bg-gradient-to-r from-blue-500 to-green-500 min-h-screen bg-cover bg-center text-white px-10 py-8">
+    <div className="bg-gradient-to-r from-blue-500 to-green-500 min-h-screen   text-white px-10 py-8">
       {loading && (
         <div className="bg-gradient-to-r from-blue-500 to-green-500 px-4 w-full h-full flex items-center justify-center">
           <Loader />
         </div>
       )}
       {!loading && profile && (
-        <div className="bg-gradient-to-r from-blue-500 to-green-500 px-4 flex flex-col items-center justify-center min-h-screen">
+        <div className="bg-gradient-to-r from-blue-500 to-green-500 px-4 flex flex-row items-start justify-start min-h-screen">
           <div className="w-full md:w-1/2 lg:w-1/3 xl:w-1/4">
             <Sidebar data={profile} />
           </div>
