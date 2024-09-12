@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Sidebar from '../components/Profile/Sidebar';
 import { Outlet } from 'react-router-dom';
 import axios from 'axios';
@@ -9,6 +10,7 @@ const Profile = () => {
   const [loading, setLoading] = useState(true);
   const token = localStorage.getItem('token');
   const refreshToken = localStorage.getItem('refreshToken');
+  const navigate = useNavigate();
 
   const fetchProfile = async (token) => {
     try {
@@ -28,6 +30,7 @@ const Profile = () => {
         await refreshAccessToken();
       } else {
         console.error('Error fetching profile data:', error);
+        handleLogout();
       }
     } finally {
       setLoading(false);
@@ -55,12 +58,19 @@ const Profile = () => {
           console.error('Response status:', refreshError.response.status);
           console.error('Response headers:', refreshError.response.headers);
         }
-        setLoading(false);
+        handleLogout();
       }
     } else {
-      console.log('No refresh token available');
-      setLoading(false);
+      console.log('No refresh token available.Login again');
+      handleLogout();
     }
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('refreshToken');
+    localStorage.removeItem('id');
+    navigate('/login');
   };
 
   useEffect(() => {
@@ -68,7 +78,7 @@ const Profile = () => {
   }, [token]);
 
   return (
-    <div className="bg-gradient-to-r from-blue-500 to-green-500 min-h-screen   text-white px-10 py-8">
+    <div className="bg-gradient-to-r from-blue-500 to-green-500 min-h-screen text-white px-10 py-8">
       {loading && (
         <div className="bg-gradient-to-r from-blue-500 to-green-500 px-4 w-full h-full flex items-center justify-center">
           <Loader />
