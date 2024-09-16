@@ -5,6 +5,7 @@ import Navbar from "./components/Navbar/Navbar";
 import { Routes, Route } from "react-router-dom";
 import AllBooks from "./pages/AllBooks";
 import SignUp from "./pages/SignUp";
+import Cart from "./pages/Cart";
 import LogIn from "./pages/LogIn";
 import BookSearch from "./pages/BookSearch";
 import Profile from "./pages/Profile";
@@ -37,6 +38,7 @@ const App = () => {
         <Route path="/all-books" element={<AllBooks />} />
         <Route path="/SignUp" element={<SignUp />} />
         <Route path="/LogIn" element={<LogIn />} />
+        <Route path="/Cart" element={<Cart />} />
         <Route path="/BookSearch" element={<BookSearch />} />
         <Route path="/profile" element={<Profile />} >
         <Route index element={<Favourites/>}/>
