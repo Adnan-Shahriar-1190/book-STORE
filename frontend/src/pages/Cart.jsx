@@ -26,19 +26,24 @@ const Cart = () => {
     fetchData();
   }, [Cart]);
 
-  const deleteItem = async (itemId) => {
-    try {
-      await axios.put(
-        `https://book-store-server-seven.vercel.app/api/v1/remove-from-cart/${itemId}`,
+  const deleteItem = async (bookid) => {
+      const response =await axios.put(
+        `https://book-store-server-seven.vercel.app/api/v1/remove-from-cart/${bookid}`,
         {},
         { headers }
       );
-      setCart(cart.filter(item => item.id !== itemId)); // Update state after item removal
-    } catch (error) {
-      alert("Error removing item from cart", error);
-    }
+      alert(response.data.message);
   };
-
+  useEffect(()=>{
+    if(Cart&&Cart.length>0){
+      let total=0;
+      Cart.map((items)=>{
+        total+=items.price;
+      });
+      setTotal(total);
+      total=0;
+    }
+  },[Cart]);
   return (
     <div className="bg-gradient-to-r from-blue-500 to-green-500 px-4">
       {!cart && <Loader />} {/* Show loader when cart data is not available */}
