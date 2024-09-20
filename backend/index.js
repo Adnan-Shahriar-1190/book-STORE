@@ -1,3 +1,4 @@
+// index.js
 const express = require("express");
 const cors = require('cors');
 const app = express();
@@ -5,9 +6,21 @@ require("dotenv").config();
 require("./conn/conn");
 const userRoutes = require("./routes/user");
 const bookRoutes = require("./routes/book");
-const Cart=require("./routes/cart");
+//
+const trafficRoutes = require('./routes/traffic');
+//
+
+const Cart = require("./routes/cart");
+
+//
+const trafficLogger = require('./middleware/trafficLogger'); // Import the traffic logger
+//
 app.use(cors());
 app.use(express.json());
+
+// Apply traffic logger middleware
+app.use(trafficLogger); // Logs every request
+//
 
 // Root route
 app.get("/", (req, res) => {
@@ -18,9 +31,12 @@ app.get("/", (req, res) => {
 app.use("/api/v1", userRoutes);
 app.use("/api/v1", bookRoutes);
 app.use("/api/v1", Cart);
+//
+app.use("/api/v1", trafficRoutes);
+//
 
 // Creating port
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
-    console.log(`Server started at port ${PORT}`);
+  console.log(`Server started at port ${PORT}`);
 });
