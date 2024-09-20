@@ -16,6 +16,7 @@ import Favourites from "./components/Profile/Favourites";
 import UserOrderHistory from "./components/Profile/UserOrderHistory";
 import Settings from "./components/Profile/Settings";
 import AllOrders from "./pages/AllOrders";
+import TrafficChart from './pages/TrafficChart';
 import AddBook from "./pages/AddBook";
 
 const App = () => {
@@ -46,7 +47,7 @@ const App = () => {
           {role === "user" ? (
             <Route index element={<Favourites />} />
           ) : (
-            <Route index element={<AllOrders />} />
+            <Route index element={<TrafficChart />} />
           )}
           {role==="admin" && <Route path="/profile/add-book" element={<AddBook />} />}
           <Route path="/profile/orderHistory" element={<UserOrderHistory />} />
