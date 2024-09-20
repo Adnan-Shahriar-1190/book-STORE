@@ -1,11 +1,13 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { authActions } from "../../store/auth";
 
 const Sidebar = ({ data }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const role = useSelector((state) => state.auth.role);
 
   const handleLogout = () => {
     localStorage.removeItem("id");
@@ -36,28 +38,51 @@ const Sidebar = ({ data }) => {
 
       <div className="w-full mt-4 h-[1px] bg-zinc-500 hidden lg:block"></div>
 
-      <div className="w-full flex-col items-center justify-center hidden lg:flex">
-        <Link
-          to="/profile"
-          className="bg-zinc-900 text-zinc-100 font-semibold w-full py-2 text-center hover:bg-slate-500 hover:text-zinc-900 rounded transition-all duration-300"
-        >
-          Favourites
-        </Link>
+      {role == "user" && (
+        <div className="w-full flex-col items-center justify-center hidden lg:flex">
+          <Link
+            to="/profile"
+            className="bg-zinc-900 text-zinc-100 font-semibold w-full py-2 text-center hover:bg-slate-500 hover:text-zinc-900 rounded transition-all duration-300"
+          >
+            Favourites
+          </Link>
 
-        <Link
-          to="/profile/orderHistory"
-          className="bg-zinc-900 text-zinc-100 font-semibold w-full py-2 mt-4 text-center hover:bg-slate-500 hover:text-zinc-900 rounded transition-all duration-300"
-        >
-          Order History
-        </Link>
+          <Link
+            to="/profile/orderHistory"
+            className="bg-zinc-900 text-zinc-100 font-semibold w-full py-2 mt-4 text-center hover:bg-slate-500 hover:text-zinc-900 rounded transition-all duration-300"
+          >
+            Order History
+          </Link>
 
-        <Link
-          to="/profile/settings"
-          className="bg-zinc-900 text-zinc-100 font-semibold w-full py-2 mt-4 text-center hover:bg-slate-500 hover:text-zinc-900 rounded transition-all duration-300"
-        >
-          Update Profile
-        </Link>
-      </div>
+          <Link
+            to="/profile/settings"
+            className="bg-zinc-900 text-zinc-100 font-semibold w-full py-2 mt-4 text-center hover:bg-slate-500 hover:text-zinc-900 rounded transition-all duration-300"
+          >
+            Update Profile
+          </Link>
+        </div>
+      )}
+
+      {role === "admin" && (
+        <div className="w-full flex-col items-center justify-center hidden lg:flex">
+          <Link
+            to="/profile"
+            className="bg-zinc-900 text-zinc-100 font-semibold w-full py-2 text-center hover:bg-slate-500 hover:text-zinc-900 rounded transition-all duration-300"
+          >
+           All Orders
+          </Link>
+
+          <Link
+            to="/profile/add-book"
+            className="bg-zinc-900 text-zinc-100 font-semibold w-full py-2 mt-4 text-center hover:bg-slate-500 hover:text-zinc-900 rounded transition-all duration-300"
+          >
+           Add Book
+          </Link>
+
+         
+
+        </div>
+      )}
 
       <button
         className="bg-red-500 text-white font-bold py-2 px-4 rounded mt-4 hover:bg-black hover:text-red-800"
