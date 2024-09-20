@@ -10,69 +10,40 @@ const BookSearch = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  const handleSearchByName = async () => {
-    try {
-      setLoading(true);
-      const response = await fetch(
-        `https://book-store-server-seven.vercel.app/api/v1/search-books?name=${encodeURIComponent(
-          searchTerm
-        )}`
-      );
-      if (!response.ok) {
-        throw new Error("Failed to fetch data");
-      }
-      const data = await response.json();
-      setSearchResults(data.data);
-      setError("");
-      // Clear price search inputs
-      setMinPrice("");
-      setMaxPrice("");
-    } catch (error) {
-      setError("An error occurred while fetching data.");
-      setSearchResults([]);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleSearchByPriceRange = async () => {
-    try {
-      if (!minPrice || !maxPrice) {
-        setError("Please provide both minPrice and maxPrice");
-        setSearchResults([]);
-        return;
-      }
-      setLoading(true);
-      const response = await fetch(
-        `http://localhost:1000/api/v1/books-in-price-range?minPrice=${encodeURIComponent(
-          minPrice
-        )}&maxPrice=${encodeURIComponent(maxPrice)}`
-      );
-
-      if (!response.ok) {
-        throw new Error("Failed to fetch data");
-      }
-
-      const data = await response.json();
-      setSearchResults(data.data);
-      setError("");
-      setSearchTerm("");
-    } catch (error) {
-      setError("An error occurred while fetching data.");
-      setSearchResults([]);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleSearch = () => {
-    if (searchTerm) {
-      handleSearchByName();
-    } else if (minPrice && maxPrice) {
-      handleSearchByPriceRange();
-    } else {
+  const handleSearch = async () => {
+    // Basic validation
+    if (!searchTerm && (!minPrice || !maxPrice)) {
       setError("Please enter a search term or specify a price range.");
       setSearchResults([]);
+      return;
+    }
+
+    try {
+      setLoading(true);
+      let url = `https://book-store-server-seven.vercel.app/api/v1/search-books`;
+
+      // Construct URL based on input
+      if (searchTerm && minPrice && maxPrice) {
+        url += `?name=${encodeURIComponent(searchTerm)}&minPrice=${encodeURIComponent(minPrice)}&maxPrice=${encodeURIComponent(maxPrice)}`;
+      } else if (searchTerm) {
+        url += `?name=${encodeURIComponent(searchTerm)}`;
+      } else if (minPrice && maxPrice) {
+        url = `https://book-store-server-seven.vercel.app/api/v1/books-in-price-range?minPrice=${encodeURIComponent(minPrice)}&maxPrice=${encodeURIComponent(maxPrice)}`;
+      }
+
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error("Failed to fetch data");
+      }
+
+      const data = await response.json();
+      setSearchResults(data.data);
+      setError("");
+    } catch (error) {
+      setError("An error occurred while fetching data.");
+      setSearchResults([]);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -87,7 +58,7 @@ const BookSearch = () => {
           type="text"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-            className="px-4 py-2 border border-r-0 border-gray-300 rounded-l w-full focus:outline-none focus:ring-2 focus:ring-blue-400"
+          className="px-4 py-2 border border-r-0 border-gray-300 rounded-l w-full focus:outline-none focus:ring-2 focus:ring-blue-400"
           placeholder="Enter book name..."
         />
       </div>
