@@ -10,8 +10,6 @@ const Footer = () => {
           <ul>
             <li className='mb-2'><a href='#' className='transition-colors duration-300 hover:text-yellow-300'>Contact Us</a></li>
             <li className='mb-2'><a href='#' className='transition-colors duration-300 hover:text-yellow-300'>About Us</a></li>
-            <li className='mb-2'><a href='#' className='transition-colors duration-300 hover:text-yellow-300'>Careers</a></li>
-            <li className='mb-2'><a href='#' className='transition-colors duration-300 hover:text-yellow-300'>Gift Cards</a></li>
           </ul>
         </div>
         {/* HELP Section */}

@@ -39,7 +39,7 @@ const ViewBookDetails = () => {
   const handleFavourite = async () => {
     try {
       const response = await axios.put(
-        "http://localhost:1000/api/v1/add-book-to-favourite",
+        "https://book-store-server-seven.vercel.app/api/v1/add-book-to-favourite",
         {},
         { headers }
       );
@@ -53,7 +53,7 @@ const ViewBookDetails = () => {
   const handleCart = async () => {
     try {
       const response = await axios.put(
-        "http://localhost:1000/api/v1/add-to-cart",
+        "https://book-store-server-seven.vercel.app/api/v1/add-to-cart",
         {},
         { headers }
       );

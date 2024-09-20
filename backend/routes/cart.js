@@ -36,7 +36,7 @@ router.put("/remove-from-cart/:bookid",authenticateToken,async(req,res)=>{
         return req.json({
             status: "Success",
             message: "Book remove from cart",
-        });s
+        });
     }catch(error){
         console.log(error);
         return res.status(500).json({message: "An error occurred"});
