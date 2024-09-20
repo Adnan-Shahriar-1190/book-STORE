@@ -24,7 +24,7 @@ const TrafficChart = () => {
   useEffect(() => {
     const fetchTrafficData = async () => {
       try {
-        const response = await axios.get('http://localhost:1000/api/v1/traffic');
+        const response = await axios.get('https://book-store-server-seven.vercel.app/api/v1/traffic');
         setTrafficData(response.data);
 
         const labels = response.data.map(item => new Date(item.timestamp).toLocaleString());
