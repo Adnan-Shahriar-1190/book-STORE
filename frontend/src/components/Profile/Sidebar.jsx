@@ -25,7 +25,7 @@ const Sidebar = ({ data }) => {
   }
 
   return (
-    <div className="bg-zinc-100 p-6 rounded-lg flex flex-col items-center justify-center space-y-4 w-full md:w-64">
+    <div className="bg-zinc-100 bg-opacity-50 p-6 rounded-lg flex flex-col items-center justify-center space-y-4 w-full md:w-64">
       <img
         src={data.avatar}
         alt="Profile Pic"
