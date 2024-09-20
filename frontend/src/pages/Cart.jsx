@@ -27,12 +27,15 @@ const Cart = () => {
   }, [Cart]);
 
   const deleteItem = async (bookid) => {
-      const response =await axios.put(
-        `https://book-store-server-seven.vercel.app/api/v1/remove-from-Cart/${bookid}`,
-        {},
-        { headers }
-      );
-      alert(response.data.message);
+      try{
+        const response =await axios.put(
+          `https://book-store-server-seven.vercel.app/api/v1/remove-from-Cart/${bookid}`,
+          {},
+          { headers }
+        );
+      }catch(error){
+        console.log(error);
+      }
   };
   useEffect(()=>{
     if(Cart&&Cart.length>0){
@@ -90,7 +93,7 @@ const Cart = () => {
                 </h2>
                 <button
                   className='bg-red-100 text-red-700 border border-red-700 rounded p-2 ms-12'
-                  onClick={() => deleteItem(item.id)}
+                  onClick={() => deleteItem(item._id)}
                 >
                   <AiFillDelete />
                 </button>
