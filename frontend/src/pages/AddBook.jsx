@@ -32,7 +32,7 @@ const AddBook = () => {
         alert("All fields are required");
       } else {
         const response = await axios.post(
-          "http://localhost:1000/api/v1/add-book",
+          "https://book-store-server-seven.vercel.app/api/v1/add-book",
           Data,
           { headers }
         );
@@ -56,14 +56,14 @@ const AddBook = () => {
       <h1 className="text-3xl md:text-5xl font-bold text-black mb-8">
         Add Book
       </h1>
-      <div className="p-4 bg-zinc-800 rounded">
+      <div className="p-4 bg-transparent rounded">
         <div>
-          <label htmlFor="" className="text-white text-lg font-semibold">
+          <label htmlFor="" className="text-black text-lg font-semibold">
             Book Image
           </label>
           <input
             type="text"
-            className="w-full mt-2 bg-gray-200 text-black p-2 outline-none"
+            className="w-full mt-2 bg-gray-200 text-black p-2 rounded-md"
             placeholder="Enter Image Url (JPG Format)"
             name="url"
             required
@@ -72,7 +72,7 @@ const AddBook = () => {
           />
         </div>
         <div className="mt-4">
-          <label htmlFor="" className="text-white text-lg font-semibold">
+          <label htmlFor="" className="text-black text-lg font-semibold rounded-md">
             Book Title
           </label>
           <input
@@ -87,7 +87,7 @@ const AddBook = () => {
         </div>
         <div className="mt-4 flex gap-4">
           <div className="w-full">
-            <label htmlFor="" className="text-white text-lg font-semibold">
+            <label htmlFor="" className="text-black rounded-md text-lg font-semibold">
               Author
             </label>
             <input
@@ -103,7 +103,7 @@ const AddBook = () => {
         </div>
         <div className="mt-4 flex gap-4">
           <div className="w-3/6">
-            <label htmlFor="" className="text-white text-lg font-semibold">
+            <label htmlFor="" className="text-black rounded-md text-lg font-semibold">
               Language
             </label>
             <input
@@ -117,7 +117,7 @@ const AddBook = () => {
             />
           </div>
           <div className="w-3/6">
-            <label htmlFor="" className="text-white text-lg font-semibold">
+            <label htmlFor="" className="text-black rounded-md text-lg font-semibold">
               Price
             </label>
             <input
@@ -132,7 +132,7 @@ const AddBook = () => {
           </div>
         </div>
         <div className="mt-4">
-          <label htmlFor="" className="text-white text-lg font-semibold">
+          <label htmlFor="" className="text-black rounded-md text-lg font-semibold">
             Description
           </label>
           <textarea
@@ -148,7 +148,7 @@ const AddBook = () => {
         <div className="mt-4">
           <button
             onClick={submit}
-            className="w-1/2 mx-auto block bg-blue-500 text-white py-2 rounded hover:bg-red-500 hover:text-black transition-colors duration-100"
+            className="w-1/2 mx-auto block bg-blue-900 text-white font-bold rounded-md py-2 hover:bg-red-500 hover:text-black transition-colors duration-100"
           >
             Add Book
           </button>

@@ -101,9 +101,6 @@ router.post("/token", (req, res) => {
   });
 });
 
-
-
-
 //get-user info
 router.get("/get-user-information", authenticateToken, async (req, res) => {
   try {
@@ -114,6 +111,40 @@ router.get("/get-user-information", authenticateToken, async (req, res) => {
     res.status(500).json({ message: "Internal server error" });
   }
 });
+
+router.put("/update-profile", authenticateToken, async (req, res) => {
+  try {
+    const { id } = req.headers;
+    const { avatar, username, email, phone } = req.body;
+
+    // Basic validation
+    if (!id) {
+      return res.status(400).json({ message: "User ID is required" });
+    }
+
+    if (!email || !/^\S+@\S+\.\S+$/.test(email)) {
+      return res.status(400).json({ message: "Invalid email format" });
+    }
+
+    // Find the user and update their information
+    const updatedUser = await User.findByIdAndUpdate(
+      id,
+      { avatar, username, email, phone },
+      { new: true } // This option returns the updated document
+    ).select("-password"); // Do not return the password field
+
+    if (!updatedUser) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    return res.status(200).json({ message: "Profile updated", user: updatedUser });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: "Internal Server Error" });
+  }
+});
+
+
 
 //update address
 router.put("/update-address", authenticateToken, async (req, res) => {
