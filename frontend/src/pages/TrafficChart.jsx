@@ -22,7 +22,7 @@ const TrafficChart = () => {
   useEffect(() => {
     const fetchBookData = async () => {
       try {
-        const response = await axios.get('http://localhost:1000/api/v1/get-all-books');
+        const response = await axios.get('https://book-store-server-seven.vercel.app/api/v1/get-all-books');
         const books = response.data.data;
 
         // Count number of books per author
