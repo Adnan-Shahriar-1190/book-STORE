@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react';
 import Loader from "../components/Loader/Loader";
 import axios from "axios";
 import { AiFillDelete } from "react-icons/ai";
-
+import { useNavigate } from 'react-router-dom';
 const Cart = () => {
+  const navigate =useNavigate();
   const [Cart, setCart] = useState(); // Corrected state variable name
   const [total, setTotal] = useState(0);
   const headers = {
@@ -47,9 +48,22 @@ const Cart = () => {
       ttl=0;
     }
   },[Cart]);
+  const PlaceOrder = async()=>{
+      try{
+        const response =await axios.post(
+          `https://book-store-server-seven.vercel.app/api/v1/place-order`,
+          {order: Cart},
+          {headers}
+        );
+        alert(response.data.message);
+        navigate("/profile/orderHistory");
+      }catch(error){
+        console.log(error);
+      }
+  };
   return (
     <div className="bg-gradient-to-r from-blue-500 to-green-500 px-4">
-      {!Cart && <Loader />} {/* Show loader when Cart data is not available */}
+      {!Cart &&(<div className='w-full h-[100%] items-center justify-center'><Loader /></div>)} {/* Show loader when Cart data is not available */}
       
       {Cart && Cart.length === 0 && (
         <div className='h-screen'>
@@ -88,7 +102,7 @@ const Cart = () => {
                 </p>
               </div>
               <div className='flex mt-4 w-full md:w-auto items-center justify-between'>
-                <h2 className='text-zinc-500 text-3xl font-semibold flex'>
+                <h2 className='text-zinc-800 text-3xl font-semibold flex'>
                   ${item.price}
                 </h2>
                 <button
@@ -100,11 +114,26 @@ const Cart = () => {
               </div>
             </div>
           ))}
-          <h2 className='text-3xl font-bold text-zinc-800 mt-8'>
-            Total: ${total}
-          </h2>
         </>
       )}
+       {Cart&&Cart.length>0&&(
+        <div className="mt-4 w-full flex items-center justify-end">
+          <div className='p-4 bg-zinc-400 bg-opacity-50 rounded'>
+          <h1 className='text-3xl font-semibold'>
+            Total Amount
+          </h1>
+          <div className='mt-3 flex items-center justify-between text-xl text-zinc-800'>
+            <h2>{Cart.length} books</h2><h2>${total}</h2>
+          </div>
+          <div className='w-[100%] mt-3'>
+            <button className='bg-blue-500 hover:bg-yellow-500 rounded px-4 flex justify-between text-xl text-zinc-800'
+            onClick={PlaceOrder}>
+              Place your Order
+            </button>
+          </div>
+        </div>
+        </div>
+       )}
     </div>
   );
 };
