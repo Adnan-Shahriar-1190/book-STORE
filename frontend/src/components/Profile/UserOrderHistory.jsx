@@ -36,34 +36,34 @@ const UserOrderHistory = () => {
             Your Order History
           </h1>
           {OrderHistory.map((items,i)=>(
-            <div className="bg-zinc-800 w-full rounded py-2 px-4 flex gap-4 hover:bg-zinc-900">
-              <div className="w-[3%]">
-                <h1 className="text-center">{i+1}</h1>
+            <div className="bg-zinc-400 bg-opacity-50 w-full rounded py-2 px-4 flex gap-4 hover:bg-zinc-900">
+              <div className="w-[3%] text-white">
+                <h1 className="text-center hover:text-white">{i+1}</h1>
               </div>
-              <div className="w-[22%] ">
+              <div className="w-[22%] text-white ">
                 <Link
                 to={`/view-book-details/${items.book._id}`}
-                className="hover:text-blue-300">{items.book.title}</Link>
+                className="text-white hover:text-blue-300">{items.book.title}</Link>
               </div>
               <div className="w-[45%]">
-                <h1>{items.book.desc.slice(0,50)}...</h1>
+                <h1 className="text-white hover:text-blue-400">{items.book.desc.slice(0,50)}...</h1>
               </div>
               <div className="w-[9%]">
-                <h1>${items.book.price}</h1>
+                <h1 className="text-white hover:text-blue-400">${items.book.price}</h1>
               </div>
               <div className="w-[16%]">
-                <h1 className="font-semibold text-green-500">
+                <h1 className="font-semibold text-white hover:text-green-500">
                   {items.status==="Order placed"?(
-                    <div className="text-yellow-500">{items.status}</div>
+                    <div className="text-white hover:text-yellow-500">{items.status}</div>
                   ) : items.status ==="Canceled" ? (
-                    <div className="text-red-500">{items.status}</div>
+                    <div className="text-white hover:text-red-500">{items.status}</div>
                   ):(
                     items.status
                   )}
                 </h1>
               </div>
               <div className="w-none md:w-[5%] hidden md:block">
-                <h1 className="text-sm text-zinc-400">COD</h1>
+                <h1 className="text-sm text-white">COD</h1>
               </div>
             </div>
           ))}
