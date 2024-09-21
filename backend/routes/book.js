@@ -196,6 +196,29 @@ router.get("/search-books-by-language", [
   }
 });
 
+// Get the count of books by each author
+router.get("/books-per-author", async (req, res) => {
+  try {
+    const booksPerAuthor = await Book.aggregate([
+      {
+        $group: {
+          _id: "$author", // Group by the 'author' field
+          bookCount: { $sum: 1 } // Count the number of books for each author
+        }
+      }
+    ]);
+    
+    res.status(200).json({
+      status: "Success",
+      data: booksPerAuthor,
+    });
+  } catch (error) {
+    console.error("Error fetching books per author:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+
 
 
 module.exports = router;
