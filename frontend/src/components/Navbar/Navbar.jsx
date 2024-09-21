@@ -15,15 +15,13 @@ const Navbar = () => {
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
 
   const role = useSelector((state) => state.auth.role);
-   
+
   if (isLoggedIn === false) {
-    links.splice(2, 2);
-  }
-  else if(isLoggedIn==true && role==="admin"){
-    links.splice(3,1);
-  }
-  else if(isLoggedIn==true && role==="user"){
-    links.splice(4,1);
+    links.splice(2, 3);
+  } else if (isLoggedIn === true && role === "admin") {
+    links.splice(3, 1);
+  } else if (isLoggedIn === true && role === "user") {
+    links.splice(4, 1);
   }
 
   const [MobileNav, setMobileNav] = useState("hidden");

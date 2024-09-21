@@ -83,7 +83,7 @@ const Sidebar = ({ data }) => {
               location.pathname === "/profile" ? activeClass : inactiveClass
             } font-semibold w-full py-2 text-center rounded transition-all duration-300`}
           >
-            All Orders
+           Dashboard
           </Link>
 
           <Link
