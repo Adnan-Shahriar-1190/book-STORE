@@ -45,7 +45,6 @@ const ViewBookDetails = () => {
       );
       alert(response.data.message);
     } catch (error) {
-      console.error("Error adding to favourites:", error);
       alert("Failed to add to favourites");
     }
   };
