@@ -106,11 +106,11 @@ const Settings = () => {
           />
         </div>
         <div className="flex flex-col py-2 text-black font-semibold">
-          <label htmlFor="">Phone Number</label>
+          <label htmlFor="">Password</label>
           <input
             className="p-2 rounded bg-gray-200 text-black mt-2 font-semibold"
             placeholder="Phone Number"
-            name="phone"
+            name="{phone}"
             value={Value.phone}
             onChange={change}
           />
