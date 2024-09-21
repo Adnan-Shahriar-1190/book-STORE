@@ -52,18 +52,26 @@ const AddBook = () => {
   };
 
   return (
-    <div className="h-[100%] p-0 md:p-4">
+    <div className="h-[100%] bg-zinc-400 bg-opacity-25 p-0 md:p-4">
       <h1 className="text-3xl md:text-5xl font-bold text-black mb-8">
         Add Book
       </h1>
+<<<<<<< HEAD
       <div className="p-4 bg-transparent rounded">
+=======
+      <div className="p-4 bg-zinc-800 bg-opacity-50 rounded">
+>>>>>>> shihab3
         <div>
           <label htmlFor="" className="text-black text-lg font-semibold">
             Book Image
           </label>
           <input
             type="text"
+<<<<<<< HEAD
             className="w-full mt-2 bg-gray-200 text-black p-2 rounded-md"
+=======
+            className="w-full mt-2 bg-gray-200 bg-opacity-10 p-2 outline-none"
+>>>>>>> shihab3
             placeholder="Enter Image Url (JPG Format)"
             name="url"
             required
@@ -77,7 +85,7 @@ const AddBook = () => {
           </label>
           <input
             type="text"
-            className="w-full mt-2 bg-gray-200 text-black p-2 outline-none"
+            className="w-full mt-2 bg-gray-200 bg-opacity-10 p-2 outline-none"
             placeholder="Title"
             name="title"
             required
@@ -92,7 +100,7 @@ const AddBook = () => {
             </label>
             <input
               type="text"
-              className="w-full mt-2 bg-gray-200 text-black p-2 outline-none"
+              className="w-full mt-2 bg-gray-200 bg-opacity-10 p-2 outline-none"
               placeholder="Author"
               name="author"
               required
@@ -108,7 +116,7 @@ const AddBook = () => {
             </label>
             <input
               type="text"
-              className="w-full mt-2 bg-gray-200 text-black p-2 outline-none"
+              className="w-full mt-2 bg-gray-200 bg-opacity-10 p-2 outline-none"
               placeholder="Language"
               name="language"
               required
@@ -122,7 +130,7 @@ const AddBook = () => {
             </label>
             <input
               type="number"
-              className="w-full mt-2 bg-gray-200 text-black p-2 outline-none"
+              className="w-full mt-2 bg-gray-200 bg-opacity-10 p-2 outline-none"
               placeholder="Enter Price"
               name="price"
               required
@@ -136,7 +144,7 @@ const AddBook = () => {
             Description
           </label>
           <textarea
-            className="w-full mt-2 bg-gray-200 text-black p-2 outline-none"
+            className="w-full mt-2 bg-gray-200 bg-opacity-10 p-2 outline-none"
             rows="5"
             placeholder="Description"
             name="desc"
