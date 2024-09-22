@@ -1,16 +1,24 @@
 // routes/traffic.js
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const Traffic = require('../models/traffic');
+const Visit = require("../models/visitSchema");
 
-// Route to get traffic data
-router.get('/traffic', async (req, res) => {
+// Endpoint to get visits grouped by date
+router.get("/visits", async (req, res) => {
   try {
-    // Retrieve all traffic data
-    const trafficData = await Traffic.find().sort({ timestamp: -1 }); // Sort by latest
-    res.json(trafficData);
+    const visits = await Visit.aggregate([
+      {
+        $group: {
+          _id: { $dateToString: { format: "%Y-%m-%d", date: "$visitDate" } },
+          count: { $sum: 1 },
+        },
+      },
+      { $sort: { _id: 1 } }, // Sort by date
+    ]);
+
+    res.status(200).json(visits);
   } catch (error) {
-    res.status(500).json({ error: 'Error fetching traffic data' });
+    res.status(500).json({ message: "Error fetching visit data" });
   }
 });
 
