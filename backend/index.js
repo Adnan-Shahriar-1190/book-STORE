@@ -6,22 +6,16 @@ require("dotenv").config();
 require("./conn/conn");
 const userRoutes = require("./routes/user");
 const bookRoutes = require("./routes/book");
-//
 const trafficRoutes = require('./routes/traffic');
-//
-
 const Cart = require("./routes/cart");
 const Order =require("./routes/order");
 
-//
 const trafficLogger = require('./middleware/trafficLogger'); // Import the traffic logger
-//
+
 app.use(cors());
 app.use(express.json());
 
-// Apply traffic logger middleware
-app.use(trafficLogger); // Logs every request
-//
+app.use(trafficLogger); 
 
 // Root route
 app.get("/", (req, res) => {
