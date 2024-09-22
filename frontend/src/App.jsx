@@ -18,6 +18,8 @@ import Settings from "./components/Profile/Settings";
 import AllOrders from "./pages/AllOrders";
 import TrafficChart from "./pages/TrafficChart";
 import AddBook from "./pages/AddBook";
+import About from "./components/Footer/about";
+import Contact from "./components/Footer/contact";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -33,7 +35,7 @@ const App = () => {
       dispatch(authActions.login());
       dispatch(authActions.changeRole(localStorage.getItem("role")));
     }
-  }, []);
+  }, [dispatch]);
 
   return (
     <div>
@@ -41,10 +43,10 @@ const App = () => {
       <Routes>
         <Route exact path="/" element={<Home />} />
         <Route path="/all-books" element={<AllBooks />} />
-        <Route path="/SignUp" element={<SignUp />} />
-        <Route path="/LogIn" element={<LogIn />} />
-        <Route path="/Cart" element={<Cart />} />
-        <Route path="/BookSearch" element={<BookSearch />} />
+        <Route path="/sign-up" element={<SignUp />} />
+        <Route path="/log-in" element={<LogIn />} />
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/book-search" element={<BookSearch />} />
         <Route path="/profile" element={<Profile />}>
           {role === "user" ? (
             <Route index element={<Favourites />} />
@@ -53,14 +55,16 @@ const App = () => {
           )}
           {role === "admin" && (
             <>
-              <Route path="/profile/add-book" element={<AddBook />} />
-              <Route path="/profile/all-orders" element={<AllOrders />} />
+              <Route path="add-book" element={<AddBook />} />
+              <Route path="all-orders" element={<AllOrders />} />
             </>
           )}
-          <Route path="/profile/orderHistory" element={<UserOrderHistory />} />
-          <Route path="/profile/settings" element={<Settings />} />
+          <Route path="order-history" element={<UserOrderHistory />} />
+          <Route path="settings" element={<Settings />} />
         </Route>
         <Route path="/view-book-details/:id" element={<ViewBookDetails />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
       </Routes>
       <Footer />
     </div>
