@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
   return (
@@ -8,18 +9,30 @@ const Footer = () => {
         <div>
           <h2 className='text-2xl font-semibold text-yellow-300 mb-4'>About</h2>
           <ul>
-            <li className='mb-2'><a href='#' className='transition-colors duration-300 hover:text-yellow-300'>Contact Us</a></li>
-            <li className='mb-2'><a href='#' className='transition-colors duration-300 hover:text-yellow-300'>About Us</a></li>
+            <li className='mb-2'>
+              <Link to='/about' className='transition-colors duration-300 hover:text-yellow-300'>About Us</Link>
+            </li>
+            <li className='mb-2'>
+              <Link to='/contact' className='transition-colors duration-300 hover:text-yellow-300'>Contact</Link>
+            </li>
           </ul>
         </div>
         {/* HELP Section */}
         <div>
           <h2 className='text-2xl font-semibold text-yellow-300 mb-4'>Help</h2>
           <ul>
-            <li className='mb-2'><a href='#' className='transition-colors duration-300 hover:text-yellow-300'>Payments</a></li>
-            <li className='mb-2'><a href='#' className='transition-colors duration-300 hover:text-yellow-300'>Shipping</a></li>
-            <li className='mb-2'><a href='#' className='transition-colors duration-300 hover:text-yellow-300'>Cancellation & Returns</a></li>
-            <li className='mb-2'><a href='#' className='transition-colors duration-300 hover:text-yellow-300'>FAQs</a></li>
+            <li className='mb-2'>
+              <a href='#' className='transition-colors duration-300 hover:text-yellow-300'>Payments</a>
+            </li>
+            <li className='mb-2'>
+              <a href='#' className='transition-colors duration-300 hover:text-yellow-300'>Shipping</a>
+            </li>
+            <li className='mb-2'>
+              <a href='#' className='transition-colors duration-300 hover:text-yellow-300'>Cancellation & Returns</a>
+            </li>
+            <li className='mb-2'>
+              <a href='#' className='transition-colors duration-300 hover:text-yellow-300'>FAQs</a>
+            </li>
           </ul>
         </div>
       </div>
