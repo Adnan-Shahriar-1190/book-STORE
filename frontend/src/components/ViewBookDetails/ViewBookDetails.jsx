@@ -3,11 +3,10 @@ import axios from "axios";
 import Loader from "../Loader/Loader";
 import { useParams, useNavigate } from "react-router-dom"; // Import useNavigate
 import { GrLanguage } from "react-icons/gr";
-import { FaHeart } from "react-icons/fa";
-import { FaShoppingCart } from "react-icons/fa";
-import { useSelector } from "react-redux";
+import { FaHeart, FaShoppingCart } from "react-icons/fa";
 import { BiSolidEditAlt } from "react-icons/bi";
 import { MdDeleteSweep } from "react-icons/md";
+import { useSelector } from "react-redux";
 
 const EditBookModal = ({ isOpen, onClose, bookData, onUpdate }) => {
   const [formData, setFormData] = useState({
@@ -113,6 +112,7 @@ const EditBookModal = ({ isOpen, onClose, bookData, onUpdate }) => {
 };
 
 const ViewBookDetails = () => {
+
   const { id } = useParams();
   const navigate = useNavigate(); // Initialize navigate
   const [data, setData] = useState(null);
@@ -120,11 +120,14 @@ const ViewBookDetails = () => {
   const role = useSelector((state) => state.auth.role);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 
+
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`https://book-store-server-seven.vercel.app/api/v1/get-book-by-id/${id}`);
-        setData(response.data.data);
+        const response = await axios.get(
+          `https://book-store-server-seven.vercel.app/api/v1/get-book-by-id/${id}`
+        );
+        setData(response.data.data); // set book data
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -136,15 +139,19 @@ const ViewBookDetails = () => {
   const headers = {
     id: localStorage.getItem("id"),
     authorization: `Bearer ${localStorage.getItem("token")}`,
-    bookid: id,
+    bookid: id, // send book ID in headers
   };
 
+  // Add to favourite function
   const handleFavourite = async () => {
     try {
-      const response = await axios.put("https://book-store-server-seven.vercel.app/api/v1/add-book-to-favourite", {}, { headers });
+      const response = await axios.put(
+        "https://book-store-server-seven.vercel.app/api/v1/add-to-favourites", // Corrected API endpoint
+        {},
+        { headers }
+      );
       alert(response.data.message);
     } catch (error) {
-      console.error("Error adding to favourites:", error);
       alert("Failed to add to favourites");
     }
   };
@@ -175,7 +182,8 @@ const ViewBookDetails = () => {
 
   return (
     <>
-      {data && (
+      {/* Render book details when data is available */}
+      {data ? (
         <div className="px-4 md:px-12 py-8 bg-gradient-to-r from-blue-500 to-green-500 flex flex-col md:flex-row gap-6">
           <div className="w-full lg:w-3/6">
             <div className="flex items-center justify-around p-12 rounded bg-zinc-400 bg-opacity-50">
@@ -184,7 +192,10 @@ const ViewBookDetails = () => {
                 alt="Book cover"
                 className="h-[50vh] lg:h-[70vh] text-white rounded"
               />
-              {isLoggedIn && role === "user" && (
+                  
+              {/* User-specific buttons */}
+              {isLoggedIn === true && role === "user" && (
+
                 <div className="flex md:flex-col">
                   <button
                     className="bg-white rounded-full text-3xl p-3 text-red-800 hover:bg-red-500 hover:text-white"
@@ -200,7 +211,10 @@ const ViewBookDetails = () => {
                   </button>
                 </div>
               )}
-              {isLoggedIn && role === "admin" && (
+
+              {/* Admin-specific buttons */}
+              {isLoggedIn === true && role === "admin" && (
+
                 <div className="flex md:flex-col">
                   <button
                     className="bg-white rounded-full text-3xl p-3 text-black hover:bg-gray-700 hover:text-white"
@@ -218,13 +232,23 @@ const ViewBookDetails = () => {
               )}
             </div>
           </div>
+
           <div className="p-4 w-3/6">
-            <h1 className="text-4xl text-zinc-900 font-bold mt-5">{data.title}</h1>
-            <p className="text-zinc-800 mt-1 text-xl">by {data.author}</p>
-            <p className="text-xl text-zinc-850 mt-6">{data.desc}</p>
-            <p className="flex mt-4 items-center justify-start text-zinc-700">
-              <GrLanguage className="me-3" /> {data.language}
+
+            <h1 className="text-4xl text-zinc-900 font-bold mt-5">
+              {data.title || "No Title Available"}
+            </h1>
+            <p className="text-zinc-800 mt-1 text-xl from-neutral-600">
+              by {data.author || "Unknown Author"}
             </p>
+            <p className="text-xl text-zinc-850 mt-6">
+              {data.desc || "No description available"}
+            </p>
+
+            <p className="flex mt-4 items-center justify-start text-zinc-700">
+              <GrLanguage className="me-3" /> {data.language || "Unknown"}
+            </p>
+
             <p className="mt-7 text-lg text-zinc-800">Price: ${data.price}</p>
           </div>
         </div>

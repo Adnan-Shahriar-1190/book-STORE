@@ -31,7 +31,7 @@ const Sidebar = ({ data }) => {
     "bg-zinc-900 text-zinc-100 hover:bg-slate-500 hover:text-zinc-900";
 
   return (
-    <div className="bg-zinc-100 p-6 rounded-lg flex flex-col items-center justify-center space-y-4 w-full md:w-64">
+    <div className="bg-zinc-200 bg-opacity-50 p-6 rounded-lg flex flex-col items-center justify-center space-y-4 w-full md:w-64">
       <img
         src={data.avatar}
         alt="Profile Pic"
