@@ -94,6 +94,15 @@ const Sidebar = ({ data }) => {
           >
             Add Book
           </Link>
+
+          <Link
+            to="/profile/all-orders"
+            className={`${
+              location.pathname === "/profile/all-orders" ? activeClass : inactiveClass
+            } font-semibold w-full py-2 mt-4 text-center rounded transition-all duration-300`}
+          >
+            All Orders
+          </Link>
         </div>
       )}
 

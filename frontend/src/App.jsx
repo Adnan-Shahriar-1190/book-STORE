@@ -16,12 +16,13 @@ import Favourites from "./components/Profile/Favourites";
 import UserOrderHistory from "./components/Profile/UserOrderHistory";
 import Settings from "./components/Profile/Settings";
 import AllOrders from "./pages/AllOrders";
-import TrafficChart from './pages/TrafficChart';
+import TrafficChart from "./pages/TrafficChart";
 import AddBook from "./pages/AddBook";
 
 const App = () => {
   const dispatch = useDispatch();
   const role = useSelector((state) => state.auth.role);
+
   useEffect(() => {
     if (
       localStorage.getItem("id") &&
@@ -33,6 +34,7 @@ const App = () => {
       dispatch(authActions.changeRole(localStorage.getItem("role")));
     }
   }, []);
+
   return (
     <div>
       <Navbar />
@@ -49,7 +51,12 @@ const App = () => {
           ) : (
             <Route index element={<TrafficChart />} />
           )}
-          {role==="admin" && <Route path="/profile/add-book" element={<AddBook />} />}
+          {role === "admin" && (
+            <>
+              <Route path="/profile/add-book" element={<AddBook />} />
+              <Route path="/profile/all-orders" element={<AllOrders />} />
+            </>
+          )}
           <Route path="/profile/orderHistory" element={<UserOrderHistory />} />
           <Route path="/profile/settings" element={<Settings />} />
         </Route>
