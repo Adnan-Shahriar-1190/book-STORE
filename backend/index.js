@@ -11,6 +11,7 @@ const trafficRoutes = require('./routes/traffic');
 //
 
 const Cart = require("./routes/cart");
+const Favourite = require("./routes/favourite");
 const Order =require("./routes/order");
 
 //
@@ -31,6 +32,7 @@ app.get("/", (req, res) => {
 // Routes
 app.use("/api/v1", userRoutes);
 app.use("/api/v1", bookRoutes);
+app.use("/api/v1", Favourite);
 app.use("/api/v1", Cart);
 app.use("/api/v1", Order);
 //
