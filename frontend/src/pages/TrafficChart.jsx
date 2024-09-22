@@ -119,14 +119,14 @@ const TrafficChart = () => {
   };
 
   return (
-    <div className="bg-white p-0 rounded-lg shadow-md max-w-lg mx-auto"> {/* Reduced padding */}
-      <h2 className="text-2xl font-semibold text-center mb-2">Books Distribution by Author</h2>
+    <div className="bg-white bg-opacity-50 p-0 rounded-lg shadow-md max-w-lg mx-auto"> {/* Reduced padding */}
+      <h2 className="text-2xl text-black font-semibold text-center mb-2">Books Distribution by Author</h2>
       {chartData.labels.length > 0 ? (
-        <div className="w-[350px] h-[350px] mx-auto my-auto"> {/* Larger chart size */}
+        <div className="text-black w-[350px] h-[350px] mx-auto my-auto"> {/* Larger chart size */}
           <Pie data={chartData} options={options} />
         </div>
       ) : (
-        <p className="text-center text-gray-500">Loading data...</p>
+        <p className="text-center text-black">Loading data...</p>
       )}
     </div>
   );

@@ -2,7 +2,8 @@ import React from 'react';
 
 const About = () => {
   return (
-    <div className='max-w-4xl mx-auto p-6'>
+    <div className='bg-gradient-to-r from-blue-500 to-green-500 '>
+      <div className='max-w-4xl mx-auto p-6'>
       <h1 className='text-4xl font-bold text-zinc-900 mb-6'>About Us</h1>
       <p className='text-black mb-4'>
         Welcome to BookStore, your number one source for all things books. We're dedicated to giving you the very best of books, with a focus on dependability, customer service, and uniqueness.
@@ -15,6 +16,7 @@ const About = () => {
       </p>
       <p className='text-xl font-semibold text-zinc-900'>Sincerely,</p>
       <p className='text-xl font-semibold text-zinc-800'>The BookStore Team</p>
+    </div>
     </div>
   );
 };
