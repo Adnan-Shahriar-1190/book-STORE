@@ -17,24 +17,6 @@ const Footer = () => {
             </li>
           </ul>
         </div>
-        {/* HELP Section */}
-        <div>
-          <h2 className='text-2xl font-semibold text-yellow-300 mb-4'>Help</h2>
-          <ul>
-            <li className='mb-2'>
-              <a href='#' className='transition-colors duration-300 hover:text-yellow-300'>Payments</a>
-            </li>
-            <li className='mb-2'>
-              <a href='#' className='transition-colors duration-300 hover:text-yellow-300'>Shipping</a>
-            </li>
-            <li className='mb-2'>
-              <a href='#' className='transition-colors duration-300 hover:text-yellow-300'>Cancellation & Returns</a>
-            </li>
-            <li className='mb-2'>
-              <a href='#' className='transition-colors duration-300 hover:text-yellow-300'>FAQs</a>
-            </li>
-          </ul>
-        </div>
       </div>
       <div className='mt-12 border-t border-gray-700 pt-6'>
         <h1 className='text-lg md:text-2xl font-semibold text-center'>
